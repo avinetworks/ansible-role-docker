@@ -23,7 +23,14 @@ Supports the following Operating Systems:
 
 ## Requirements
 
-This role requires Ansible 1.9.3 or higher. Requirements are listed in the metadata file.
+This role requires Ansible 2.0.0 or higher. Requirements are listed in the metadata file.
+
+## Role Variables
+
+| Variable | Required | Default | Choices | Comments |
+|----------|----------|---------|---------|----------|
+| `storage_driver` | No | `None` | <ul><li>devicemapper</li><li>aufs</li></ul> | The name of the storage driver for docker. |
+| `block_device` | No | `None` | <ul><li>/dev/sda3, etc.</li></ul> | The device name used for the storage driver. |
 
 ## Example Playbook
 
