@@ -1,0 +1,6 @@
+---
+- name: Docker | Storage Driver | AUFS | Modify Docker configuration for AUFS
+  lineinfile:
+    name: /etc/default/docker
+    line: 'DOCKER_OPTS="$DOCKER_OPTS --storage-driver=aufs"'
+    insertafter: '^DOCKER_OPTS=*'
