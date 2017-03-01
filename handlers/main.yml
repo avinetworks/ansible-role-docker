@@ -1,2 +1,6 @@
+---
+- name: Docker | Daemon-reload
+  shell: systemctl daemon-reload
+
 - name: Docker | Restart Docker
   service: name=docker state=restarted

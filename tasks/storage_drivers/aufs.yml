@@ -1,4 +1,15 @@
 ---
+- name: Docker | Storage Driver | AUFS | Install dependencies for Ubuntu/Debian
+  apt: name={{ item }} state=present
+  with_items:
+    - linux-image-extra-{{ ansible_kernel }}
+    - linux-image-extra-virtual
+  when: ansible_os_family == "Debian"
+
+- name: Docker | Storage Driver | AUFS | Ensure driver is available
+  shell: grep -q aufs /proc/filesystems && modprobe aufs
+  changed_when: false
+
 - name: Docker | Storage Driver | AUFS | Modify Docker configuration for AUFS
   lineinfile:
     name: /etc/default/docker

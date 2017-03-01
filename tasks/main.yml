@@ -3,12 +3,16 @@
 - name: Docker | Include Specific Variables
   include_vars: "{{ ansible_distribution }}.yml"
 
-- name: Docker | Storage Driver
-  include: "storage_drivers/{{ storage_driver }}.yml"
-  when: storage_driver is defined
-
 - name: Docker | Start Installation
   include: "{{ ansible_pkg_mgr }}.yml"
 
-- name: Docker | Start the Docker Process and Start at Boot
-  service: name=docker enabled=yes state=started
+- name: Docker | Storage Driver
+  include: "storage_drivers/{{ docker_storage_driver }}.yml"
+  when: docker_storage_driver is defined
+
+- name: Docker | Ensure docker starts at Boot
+  service: name=docker enabled=yes
+
+- name: Docker | Proxy configuration
+  include: proxy.yml
+  when: docker_http_proxy is defined
