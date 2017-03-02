@@ -34,8 +34,8 @@
   shell: lvchange --metadataprofile docker-thinpool docker/thinpool
   when: docker_thinpool_profile.changed
 
-- name: Docker | Storage Driver | devicemapper | Make sure /etc/docker is Created
-  file: path=/etc/docker state=directory
+- name: Docker | Storage Driver | devicemapper | Make sure /var/lib/docker is Created
+  file: path=/var/lib/docker state=directory
 
 - set_fact:
     docker_storage_opts:
