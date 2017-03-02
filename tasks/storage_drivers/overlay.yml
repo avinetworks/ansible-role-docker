@@ -1,0 +1,4 @@
+---
+- name: Docker | Storage Driver | overlay2 | Ensure driver is available
+  shell: grep -q btrfs /proc/filesystems && modprobe overlay
+  changed_when: false
