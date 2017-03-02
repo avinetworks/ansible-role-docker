@@ -36,7 +36,3 @@
 
 - name: Docker | Storage Driver | devicemapper | Make sure /etc/docker is Created
   file: path=/etc/docker state=directory
-
-- name: Docker | Storage Driver | devicemapper | Configure daemon
-  copy: src=daemon.json dest=/etc/docker/daemon.json
-  notify: Docker | Restart Docker

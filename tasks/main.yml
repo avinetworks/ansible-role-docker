@@ -18,8 +18,10 @@
     docker_config: "{{ lookup('template', 'docker_config.j2') | from_yaml }}"
 
 - name: Docker | Deploy Config
-  template: src=daemon.json.j2 dest=/etc/docker/daemon.json.new
-
+  template: src=daemon.json.j2 dest=/etc/docker/daemon.json
+  when: docker_config != ""
+  notify: Docker | Restart Docker
+  
 - name: Docker | Proxy configuration
   include: proxy.yml
   when: docker_http_proxy is defined
