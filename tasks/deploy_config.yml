@@ -1,0 +1,12 @@
+---
+- name: Docker | Deploy Config | Set the docker configuration
+  set_fact:
+    docker_config: "{{ lookup('template', 'docker_config.j2') | from_yaml }}"
+
+- name: Docker | Deploy Config | Make sure /etc/docker exists
+  file: path=/etc/docker state=directory
+
+- name: Docker | Deploy Config | Deploy /etc/docker/daemon.json
+  copy: content="{{ docker_config | to_nice_json }}\n" dest=/etc/docker/daemon.json
+  when: docker_config != ""
+  notify: Docker | Restart Docker
