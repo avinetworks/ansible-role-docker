@@ -40,7 +40,7 @@ For more information about the variables many can be found https://docs.docker.c
 | `docker_bridge` | No | `Undefined` | Attach containers to a network bridge |
 | `docker_cgroup_parent` | No | `Undefined` | Set parent cgroup for all containers |
 | `docker_cluster_store` | No | `Undefined` | Set cluster store options |
-| `docker_cluster_store_opts` | No | `Undefined` | Please see https://docs.docker.com/engine/reference/commandline/dockerd/ for info |
+| `docker_cluster_store_opts` | No | `Undefined` | Please see dockerd manual for info |
 | `docker_cluster_advertise` | No | `Undefined` | Address or interface name to advertise |
 | `docker_debug` | No | `Undefined` | Enable debug mode |
 | `docker_default_gateway` | No | `Undefined` | Container default gateway IPv4 address |
@@ -93,6 +93,14 @@ For more information about the variables many can be found https://docs.docker.c
 ## Example Playbook
 
 Install docker to your machine.
+
+```
+- hosts: servers
+  roles:
+    - role: avinetworks.docker
+```
+
+Install docker with devicemapper.
 
 ```
 - hosts: servers
