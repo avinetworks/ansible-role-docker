@@ -3,24 +3,18 @@
 - name: Docker | Include Specific Variables
   include_vars: "{{ ansible_distribution }}.yml"
 
-- name: Docker | Start Installation
-  include: "{{ ansible_pkg_mgr }}.yml"
-
 - name: Docker | Storage Driver
   include: "storage_drivers/{{ docker_storage_driver }}.yml"
   when: docker_storage_driver is defined
 
+- name: Docker | Start Installation
+  include: "{{ ansible_pkg_mgr }}.yml"
+
 - name: Docker | Ensure docker starts at Boot
   service: name=docker enabled=yes
 
-- name: Docker | Set the docker configuration
-  set_fact:
-    docker_config: "{{ lookup('template', 'docker_config.j2') | from_yaml }}"
-
 - name: Docker | Deploy Config
-  copy: content="{{ docker_config | to_nice_json }}\n" dest=/etc/docker/daemon.json
-  when: docker_config != ""
-  notify: Docker | Restart Docker
+  include: deploy_config.yml
 
 - name: Docker | Proxy configuration
   include: proxy.yml
