@@ -9,9 +9,3 @@
 - name: Docker | Storage Driver | AUFS | Ensure driver is available
   shell: grep -q aufs /proc/filesystems && modprobe aufs
   changed_when: false
-
-- name: Docker | Storage Driver | AUFS | Modify Docker configuration for AUFS
-  lineinfile:
-    name: /etc/default/docker
-    line: 'DOCKER_OPTS="$DOCKER_OPTS --storage-driver=aufs"'
-    insertafter: '^DOCKER_OPTS=*'
