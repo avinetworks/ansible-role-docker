@@ -32,6 +32,7 @@ For more information about the variables many can be found https://docs.docker.c
 |----------|----------|---------|----------|
 | `docker_storage_driver` | No | `Undefined` | Storage driver to use |
 | `docker_block_device` | No | `Undefined` | The device name used for the storage driver. |
+| `docker_mount_opts` | No | `Undefined` | The mount options when mounting filesystems |
 | `docker_storage_opts` | No | `Undefined` | Storage driver options |
 | `docker_api_cors_header` | No | `Undefined` | Set CORS headers in the remote API |
 | `docker_authorization_plugins` | No | `Undefined` | Authorization plugins to load |
