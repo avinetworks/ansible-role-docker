@@ -18,4 +18,6 @@
 
 - name: Docker | Proxy configuration
   include: proxy.yml
-  when: docker_http_proxy is defined
+  when: docker_http_proxy is defined or
+        docker_https_proxy is defined or
+        docker_no_proxy_params is defined
