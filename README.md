@@ -1,6 +1,6 @@
 # avinetworks.docker
 
-[![Build Status](https://travis-ci.org/avinetworks/ansible-role-docker.svg?branch=master)](https://travis-ci.org/avinetworks/ansible-role-docker)
+[//]: # ([![Build Status](https://travis-ci.org/avinetworks/ansible-role-docker.svg?branch=master)](https://travis-ci.org/avinetworks/ansible-role-docker))
 [![Ansible Galaxy](https://img.shields.io/badge/galaxy-avinetworks.docker-blue.svg)](https://galaxy.ansible.com/avinetworks/docker/)
 
 
