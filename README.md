@@ -91,7 +91,7 @@ For more information about the variables many can be found https://docs.docker.c
 | `docker_https_proxy` | No | `Undefined` | Set the Docker service to use HTTPS_PROXY |
 | `docker_no_proxy_params` | No | `Undefined` | Do not proxy for Docker service params |
 
-## Example Playbook
+## Example Playbooks
 
 Install docker to your machine.
 
@@ -109,11 +109,9 @@ Install docker with devicemapper.
     - role: avinetworks.docker
       docker_storage_driver: devicemapper
       docker_block_device: /dev/sda3
-      docker_storage_opts:
-        - dm.thinpooldev=/dev/mapper/docker-thinpool
-        - dm.use_deferred_removal=true
-        - dm.use_deferred_deletion=true
 ```
+
+Please see [examples/](examples/) folder for more examples.
 
 ## License
 
