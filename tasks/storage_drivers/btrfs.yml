@@ -6,9 +6,10 @@
   yum: name=btrfs-progs state=present
   when: ansible_os_family == "RedHat"
 
-- name: Docker | Storage Driver | Btrfs | Ensure driver is available
-  shell: grep -q btrfs /proc/filesystems && modprobe btrfs
-  changed_when: false
+- name: Docker | Storage Driver | Btrfs | Enable btrfs driver
+  modprobe:
+    name: btrfs
+    state: present
 
 - name: Docker | Storage Driver | Btrfs | Create Btfs storage filesystem
   filesystem: dev={{ docker_block_device }} fstype=btrfs

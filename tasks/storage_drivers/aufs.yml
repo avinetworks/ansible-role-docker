@@ -6,6 +6,7 @@
     - linux-image-extra-virtual
   when: ansible_os_family == "Debian"
 
-- name: Docker | Storage Driver | AUFS | Ensure driver is available
-  shell: grep -q aufs /proc/filesystems && modprobe aufs
-  changed_when: false
+- name: Docker | Storage Driver | AUFS | Enable AUFS driver
+  modprobe:
+    name: aufs
+    state: present

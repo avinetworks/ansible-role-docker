@@ -4,6 +4,7 @@
     that: "{{ ansible_kernel | version_compare('4.0.0', '>=')}}"
     msg: "Please upgrade to kernel 4.0.0 or higher."
 
-- name: Docker | Storage Driver | overlay2 | Ensure driver is available
-  shell: grep -q overlay /proc/filesystems && modprobe overlay
-  changed_when: false
+- name: Docker | Storage Driver | overlay2 | Enable overlay driver
+  modprobe:
+    name: overlay
+    state: present
