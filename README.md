@@ -25,6 +25,8 @@ Supports the following Operating Systems:
 
 This role requires Ansible 2.0.0 or higher. Requirements are listed in the metadata file.
 
+If you rely on privileage escalation (e.g. `become: true`) with this role, you will need Ansible 2.2.1 or higher to take advantage of this issue being fixed: https://github.com/ansible/ansible/issues/17490
+
 ## Role Variables
 For more information about the variables many can be found https://docs.docker.com/engine/reference/commandline/dockerd/
 
