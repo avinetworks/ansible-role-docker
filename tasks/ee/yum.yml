@@ -11,9 +11,8 @@
   shell: "yum-config-manager --add-repo {{ docker_ee_url }}/docker-ee.repo"
   creates: /etc/yum.repos.d/docker-ee.repo
 
-- name: Docker | EE | YUM | Oracle Linux
-  include: os/oracle.yml
-  when: ansible_distribution == 'OracleLinux'
+- name: Docker | EE | YUM | Perform specific os tasks
+  include: os/{{ ansible_distribution|lower }}.yml
 
 - name: Docker | EE | YUM | Remove older Docker installations
   yum: name={{ item }} state=absent

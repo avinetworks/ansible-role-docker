@@ -7,13 +7,8 @@
     - curl
     - software-properties-common
 
-- name: Docker | EE | APT | Ubuntu
-  include: os/ubuntu.yml
-  when: ansible_distribution == 'Ubuntu'
-
-- name: Docker | EE | APT | Debian
-  include: os/debian.yml
-  when: ansible_distribution == 'Debian'
+- name: Docker | EE | APT | Perform specific os tasks
+  include: os/{{ ansible_distribution|lower }}.yml
 
 - name: Docker | EE | APT | Remove old repo lxc-docker
   apt: name={{ item }} state=absent

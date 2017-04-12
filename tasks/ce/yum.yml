@@ -19,9 +19,8 @@
   when: docker_channel == "edge"
   notify: Docker | CE | YUM | Upgrade to Edge
 
-- name: Docker | CE | YUM | Oracle Linux
-  include: os/oracle.yml
-  when: ansible_distribution == 'OracleLinux'
+- name: Docker | CE | YUM | Perform specific os tasks
+  include: os/{{ ansible_distribution|lower }}.yml
 
 - name: Docker | CE | YUM | Remove older Docker installations
   yum: name={{ item }} state=absent
