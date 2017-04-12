@@ -1,5 +1,5 @@
 ---
-- name: Docker | CE | YUM | Oracle Linux | Disable UEK R3
+- name: Docker | EE | YUM | Oracle Linux | Disable UEK R3
   yum_repository:
     name: ol7_UEKR3
     description: Latest Unbreakable Enterprise Kernel Release 3 for Oracle Linux $releasever ($basearch)
@@ -9,7 +9,7 @@
     gpgkey: file:///etc/pki/rpm-gpg/RPM-GPG-KEY-oracle
   when: ansible_distribution_major_version == "7"
 
-- name: Docker | CE | YUM | Oracle Linux | Enable UEK R4
+- name: Docker | EE | YUM | Oracle Linux | Enable UEK R4
   yum_repository:
     name: ol7_UEKR4
     description: Latest Unbreakable Enterprise Kernel Release 4 for Oracle Linux $releasever ($basearch)
