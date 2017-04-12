@@ -25,6 +25,11 @@ For more information about the variables many can be found https://docs.docker.c
 
 | Variable | Required | Default | Comments |
 |----------|----------|---------|----------|
+| `docker_edition` | No | `legacy` | Specifies either legacy, ce, or ee version of Docker. |
+| `docker_ee_url` | No | `Undefined` | Docker EE URL from the Docker Store |
+| `docker_repo` | No | `docker` | Defines how Ansible manages the repository. Options are "other" and "docker" |
+| `docker_channel` | No | `stable` | What release channel of Docker to install. |
+| `docker_ee_version` | No | `17.03` | Docker EE version for EE repository |
 | `docker_storage_driver` | No | `Undefined` | Storage driver to use |
 | `docker_block_device` | No | `Undefined` | The device name used for the storage driver. |
 | `docker_mount_opts` | No | `Undefined` | The mount options when mounting filesystems |
