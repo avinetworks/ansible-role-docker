@@ -19,6 +19,7 @@
     gpgkey: https://download.docker.com/linux/centos/gpg
     enabled: yes
     file: docker-ce
+  when: docker_channel == "edge"
   notify: Docker | CE | YUM | Upgrade to Edge
 
 - name: Docker | CE | YUM | Oracle Linux
