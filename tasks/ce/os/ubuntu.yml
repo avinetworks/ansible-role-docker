@@ -27,3 +27,4 @@
     repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} edge"
     state: present
   when: docker_channel == "edge"
+  notify: Docker | CE | YUM | Upgrade to Edge

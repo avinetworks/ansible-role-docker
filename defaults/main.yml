@@ -4,6 +4,7 @@ docker_config: {}
 docker_edition: legacy
 docker_repo: docker
 docker_channel: stable
+docker_ee_version: 17.03
 docker_options:
   api-cors-header: "{{ docker_api_cors_header | default(None) }}"
   authorization-plugins: "{{ docker_authorization_plugins | default(None) }}"
