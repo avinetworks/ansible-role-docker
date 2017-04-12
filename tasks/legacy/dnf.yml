@@ -4,8 +4,8 @@
     name: dockerrepo
     description: Docker Repository
     baseurl: "https://yum.dockerproject.org/repo/main/{{ ansible_distribution|lower}}/{{ ansible_distribution_major_version }}/"
-    enabled: 1
-    gpgcheck: 1
+    enabled: yes
+    gpgcheck: yes
     gpgkey: https://yum.dockerproject.org/gpg
 
 - name: DNF | Remove Old Docker
@@ -13,3 +13,4 @@
 
 - name: DNF | Install Docker Application
   dnf: name=docker-engine state=present
+  notify: Docker | Restart Docker

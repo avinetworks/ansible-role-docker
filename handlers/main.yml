@@ -4,3 +4,9 @@
 
 - name: Docker | Restart Docker
   service: name=docker state=restarted
+
+- name: Docker | CE | APT | Upgrade to Edge
+  apt: name=docker-ce state=latest
+
+- name: Docker | CE | YUM | Upgrade to Edge
+  yum: name=docker-ce state=latest

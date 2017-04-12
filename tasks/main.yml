@@ -3,14 +3,26 @@
 - name: Docker | Include Specific Variables
   include_vars: "{{ ansible_distribution }}.yml"
 
+- name: Docker | EE | Check Requirements
+  fail:
+    msg: "Variable docker_ee_url is required and is not defined."
+  when:
+    - docker_ee_url is not defined
+    - docker_edition == "ee"
+
 - name: Docker | Storage Driver
   include: "storage_drivers/{{ docker_storage_driver }}.yml"
   when: docker_storage_driver is defined
 
 - name: Docker | Start Installation
-  include: "{{ ansible_pkg_mgr }}.yml"
+  include: "{{ docker_edition }}/{{ ansible_pkg_mgr }}.yml"
+  when: docker_repo == "docker"
 
-- name: Docker | Ensure docker starts at Boot
+- name: Docker | Start Installation | Other repo
+  include: other_repo.yml
+  when: docker_repo == "other"
+
+- name: Docker | Ensure service starts at boot
   service: name=docker enabled=yes
 
 - name: Docker | Deploy Config

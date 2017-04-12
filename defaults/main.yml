@@ -1,6 +1,9 @@
----:
-# defaults file for avinetworks.docker:
+---
+# defaults file for avinetworks.docker
 docker_config: {}
+docker_edition: legacy
+docker_repo: docker
+docker_channel: stable
 docker_options:
   api-cors-header: "{{ docker_api_cors_header | default(None) }}"
   authorization-plugins: "{{ docker_authorization_plugins | default(None) }}"

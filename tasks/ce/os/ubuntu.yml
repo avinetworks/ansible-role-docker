@@ -1,0 +1,29 @@
+---
+#For Ubuntu Trusty, Wily, and Xenial, it’s recommended to install the linux-image-extra kernel package.
+#The linux-image-extra package allows you use the aufs storage driver.
+- name: Docker | CE | Ubuntu | Install the linux-image-extra kernal package
+  apt: name="linux-image-extra-{{ ansible_kernel }}" state=present
+  when: ansible_distribution_version in ['14.04','15.10']
+
+#If you are installing on Ubuntu 14.04, apparmor is required.
+- name: Docker | CE | Ubuntu | Install AppArmor Dependency
+  apt: name=apparmor state=present
+  when: ansible_distribution_version in "14.04"
+
+- name: Docker | CE | APT | Add Docker GPG Key
+  apt_key:
+    id: 0EBFCD88
+    url: https://download.docker.com/linux/ubuntu/gpg
+    state: present
+
+#Docker’s APT repository contains Docker 1.7.1 and higher.
+- name: Docker | CE | APT | Configure Docker repository
+  apt_repository:
+    repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable"
+    state: present
+
+- name: Docker | CE | APT | Enable Edge repository
+  apt_repository:
+    repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} edge"
+    state: present
+  when: docker_channel == "edge"
