@@ -7,9 +7,6 @@
   args:
     creates: /etc/yum.repos.d/docker-ce.repo
 
-#- name: Docker | CE | YUM | Enable edge Repository
-#  shell: yum-config-manager --enable docker-ce-edge
-
 - name: Docker | CE | YUM | Enable edge repository
   yum_repository:
     name: docker-ce-edge
