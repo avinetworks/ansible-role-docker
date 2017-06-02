@@ -19,6 +19,7 @@
   rescue:
     - shell: which pip
       register: docker_pip_exists
+      failed_when: false
     - yum: name=python-setuptools
       with_items:
         - openssl-devel
