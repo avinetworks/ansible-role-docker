@@ -21,7 +21,7 @@
       register: docker_pip_exists
       failed_when: false
       changed_when: false
-    - apt: name=python-setuptools
+    - apt: name={{ item }}
       with_items:
         - openssl-devel
         - python-setuptools
