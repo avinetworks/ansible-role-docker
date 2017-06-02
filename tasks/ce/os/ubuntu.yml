@@ -21,6 +21,7 @@
       register: docker_pip_exists
       failed_when: false
       changed_when: false
+    - debug: var=docker_pip_exists
     - apt: name={{ item }}
       with_items:
         - libssl-dev
