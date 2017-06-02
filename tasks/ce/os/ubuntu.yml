@@ -12,9 +12,10 @@
 
 - name: Docker | CE | APT | Add Docker GPG Key
   apt_key:
-    id: 0EBFCD88
+#    id: 0EBFCD88
     url: https://download.docker.com/linux/ubuntu/gpg
-    state: present
+#    state: present
+    validate_certs: no
 
 #Docker’s APT repository contains Docker 1.7.1 and higher.
 - name: Docker | CE | APT | Configure Docker repository
