@@ -10,11 +10,32 @@
   apt: name=apparmor state=present
   when: ansible_distribution_version in "14.04"
 
-- name: Docker | CE | APT | Add Docker GPG Key
-  apt_key:
-    id: "{{ docker_apt_key_id }}"
-    url: "{{ docker_apt_key_url }}"
-    state: present
+- block:
+    - name: Docker | CE | APT | Add Docker GPG Key
+      apt_key:
+        id: "{{ docker_apt_key_id }}"
+        url: "{{ docker_apt_key_url }}"
+        state: present
+  rescue:
+    - shell: which pip
+      register: docker_pip_exists
+    - yum: name=python-setuptools
+      when: docker_pip_exists.rc == "1"
+    - easy_install: name=pip
+      when: docker_pip_exists.rc == "1"
+    - pip: name={{ item }}
+      with_items:
+        - urllib3
+        - pyopenssl
+        - ndg-httpsclient
+        - pyasn1
+      when: docker_pip_exists.rc == "1"
+    - name: Docker | CE | APT | Add Docker GPG Key
+      apt_key:
+        id: "{{ docker_apt_key_id }}"
+        url: "{{ docker_apt_key_url }}"
+        state: present
+
 
 #Docker’s APT repository contains Docker 1.7.1 and higher.
 - name: Docker | CE | APT | Configure Docker repository
