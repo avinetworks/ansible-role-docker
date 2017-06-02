@@ -15,7 +15,6 @@
     id: "{{ docker_apt_key_id }}"
     url: "{{ docker_apt_key_url }}"
     state: present
-    validate_certs: no
 
 #Docker’s APT repository contains Docker 1.7.1 and higher.
 - name: Docker | CE | APT | Configure Docker repository
