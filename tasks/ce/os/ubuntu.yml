@@ -29,7 +29,6 @@
         - pyopenssl
         - ndg-httpsclient
         - pyasn1
-      when: docker_pip_exists.rc == "1"
     - name: Docker | CE | APT | Add Docker GPG Key
       apt_key:
         id: "{{ docker_apt_key_id }}"
