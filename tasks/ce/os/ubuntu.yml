@@ -23,7 +23,7 @@
       changed_when: false
     - apt: name={{ item }}
       with_items:
-        - openssl-dev
+        - libssl-dev
         - python-setuptools
         - python-dev
         - make
