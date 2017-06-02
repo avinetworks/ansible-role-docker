@@ -25,7 +25,6 @@
         - python-setuptools
         - python-dev
         - make
-      when: docker_pip_exists.rc == "1"
     - easy_install: name=pip
       when: docker_pip_exists.rc == "1"
     - pip: name={{ item }}
