@@ -29,7 +29,7 @@
         - python-dev
         - make
     - easy_install: name=pip
-      when: docker_pip_exists.rc == "1"
+      when: docker_pip_exists.rc == 1
     - pip: name={{ item }}
       with_items:
         - urllib3
