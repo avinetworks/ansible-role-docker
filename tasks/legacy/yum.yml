@@ -36,4 +36,4 @@
 
 - name: YUM | Install Docker Application
   yum: name=docker-engine state=present
-  notify: Docker | Restart Service
+  notify: Docker | Restart Docker

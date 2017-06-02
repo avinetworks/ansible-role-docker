@@ -1,7 +1,7 @@
 ---
 # defaults file for avinetworks.docker
 docker_config: {}
-docker_edition: legacy
+docker_edition: ce
 docker_repo: docker
 docker_channel: stable
 docker_ee_version: 17.03

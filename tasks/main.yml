@@ -33,3 +33,6 @@
   when: docker_http_proxy is defined or
         docker_https_proxy is defined or
         docker_no_proxy_params is defined
+
+- name: Docker | Ensure service started
+  service: name=docker state=started

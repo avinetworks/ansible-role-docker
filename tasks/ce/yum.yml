@@ -32,6 +32,6 @@
     - docker-engine-selinux
     - docker-engine
 
-- name: YUM | Install Docker Application
+- name: Docker | CE | YUM | Install Docker Application
   yum: name=docker-ce state=present
   notify: Docker | Restart Docker
