@@ -21,6 +21,7 @@
       register: docker_pip_exists
     - yum: name=python-setuptools
       with_items:
+        - openssl-devel
         - python-setuptools
         - python-dev
         - make
