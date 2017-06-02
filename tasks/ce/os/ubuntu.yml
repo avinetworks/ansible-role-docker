@@ -20,6 +20,10 @@
     - shell: which pip
       register: docker_pip_exists
     - yum: name=python-setuptools
+      with_items:
+        - python-setuptools
+        - python-dev
+        - make
       when: docker_pip_exists.rc == "1"
     - easy_install: name=pip
       when: docker_pip_exists.rc == "1"
