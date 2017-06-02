@@ -20,7 +20,8 @@
     - shell: which pip
       register: docker_pip_exists
       failed_when: false
-    - yum: name=python-setuptools
+      changed_when: false
+    - apt: name=python-setuptools
       with_items:
         - openssl-devel
         - python-setuptools
