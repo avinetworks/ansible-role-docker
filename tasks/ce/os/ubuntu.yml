@@ -22,11 +22,6 @@
       register: docker_pip_exists
       failed_when: false
       changed_when: false
-    - name: Docker | CE | APT | Get Docker GPG Key
-      uri:
-        url: https://download.docker.com/linux/ubuntu/gpg
-      register: docker_apt_key
-    - debug: var=docker_apt_key
     - name: Docker | CE | APT | Add Docker GPG Key
       apt_key:
         id: "{{ docker_apt_key_id }}"
