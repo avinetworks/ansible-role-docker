@@ -17,6 +17,8 @@
   changed_when: false
   register: docker_gpg_exists
 
+- debug: var=docker_gpg_exists
+
 # If the GPG key doesn't exist, then add the new GPG key
 - name: Docker | CE | APT | Add Docker GPG Key
   shell: curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
