@@ -103,7 +103,7 @@ Install docker to your machine.
     - role: avinetworks.docker
 ```
 
-Install docker with devicemapper.
+Install docker with devicemapper. Please note, this will create a new LVM on /dev/sda3, please do not use a block device already in use.
 
 ```
 - hosts: servers
