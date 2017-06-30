@@ -9,7 +9,7 @@
 
 - name: Docker | Storage Driver | devicemapper | Install LVM2 | APT
   apt: name=lvm2 state=present
-  when: ansible_pkg_mgr == 'dnf'
+  when: ansible_pkg_mgr == 'apt'
 
 - name: Docker | Storage Driver | devicemapper | Configure logical volume group
   lvg: vg=docker pvs="{{ docker_block_device }}"
