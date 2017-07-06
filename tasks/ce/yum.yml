@@ -16,22 +16,20 @@
     gpgkey: https://download.docker.com/linux/centos/gpg
     enabled: yes
     file: docker-ce
+    update_cache: yes
   when: docker_channel == "edge"
   notify: Docker | CE | YUM | Upgrade to Edge
 
 - name: Docker | CE | YUM | Perform specific os tasks
   include: os/{{ ansible_distribution|lower }}.yml
 
-- name: Docker | CE | YUM | Remove older Docker installations
-  yum: name={{ item }} state=absent
-  with_items:
-    - docker
-    - docker-common
-    - docker-selinux
-    - container-selinux
-    - docker-engine-selinux
-    - docker-engine
+# - name: Docker | CE | YUM | Remove older Docker installations
+#   yum: name={{ item }} state=absent
+#   with_items:
+#     - docker
+#     - docker-common
+#     - docker-engine
 
 - name: Docker | CE | YUM | Install Docker Application
-  yum: name=docker-ce state=present
+  yum: name=docker-ce   state=present
   notify: Docker | Restart Docker
