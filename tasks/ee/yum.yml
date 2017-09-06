@@ -9,7 +9,8 @@
 
 - name: Docker | EE | YUM | Deploy repository
   shell: "yum-config-manager --add-repo {{ docker_ee_url }}/docker-ee.repo"
-  creates: /etc/yum.repos.d/docker-ee.repo
+  args:
+    creates: /etc/yum.repos.d/docker-ee.repo
 
 - name: Docker | EE | YUM | Perform specific os tasks
   include: os/{{ ansible_distribution|lower }}.yml
