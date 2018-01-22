@@ -13,13 +13,16 @@
 
 - name: Docker | Storage Driver | devicemapper | Configure logical volume group
   lvg: vg=docker pvs="{{ docker_block_device }}"
+  when: docker_block_device is defined
 
 - name: Docker | Storage Driver | devicemapper | Create thinpool volume
   lvol: vg=docker lv=thinpool size=95%VG opts="--wipesignatures y"
   register: thinpool
+  when: docker_block_device is defined
 
 - name: Docker | Storage Driver | devicemapper | Create thinpoolmeta volume
   lvol: vg=docker lv=thinpoolmeta size=1%VG opts="--wipesignatures y"
+  when: docker_block_device is defined
 
 - name: Docker | Storage Driver | devicemapper | Convert volumes to thinpool
   shell: lvconvert -y --zero n -c 512K --thinpool docker/thinpool --poolmetadata docker/thinpoolmeta
@@ -29,6 +32,7 @@
   copy: src=docker-thinpool.profile dest=/etc/lvm/profile/docker-thinpool.profile
   register: docker_thinpool_profile
   notify: Docker | Restart Docker
+  when: docker_block_device is defined
 
 - name: Docker | Storage Driver | devicemapper | Apply 'lvm' profile
   shell: lvchange --metadataprofile docker-thinpool docker/thinpool
