@@ -46,3 +46,12 @@
     - role: avinetworks.docker
       docker_graph: /home/docker
 ```
+
+### Install/Upgrade Docker. Avoid container downtime during the upgrade of a Docker
+```
+---
+- hosts: all
+  roles:
+    - role: avinetworks.docker
+      docker_live_restore: true
+```
