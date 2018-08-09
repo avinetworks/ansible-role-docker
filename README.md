@@ -1,8 +1,5 @@
 # avinetworks.docker
 
-[![Ansible Galaxy](https://img.shields.io/badge/galaxy-avinetworks.docker-blue.svg)](https://galaxy.ansible.com/avinetworks/docker/)
-
-
 This role provides the following:
 * Installation of Docker following Docker-Engine install procedures as documented by Docker.
 * It will manage kernel versions as well, verifying the that the correct kernel for Docker support is installed.
