@@ -16,7 +16,6 @@
     gpgkey: https://download.docker.com/linux/centos/gpg
     enabled: yes
     file: docker-ce
-    update_cache: yes
   when: docker_channel == "edge"
   notify: Docker | CE | YUM | Upgrade to Edge
 
