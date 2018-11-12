@@ -2,9 +2,9 @@
 - name: Docker | Deploy Config | Make sure /etc/docker exists
   file: path=/etc/docker state=directory
 
-#- name: Docker | Deploy Config | Deploy /etc/docker/daemon.json
-#  template: src=docker_config.j2 dest=/etc/docker/daemon.json
-#  notify: Docker | Restart Docker
+# - name: Docker | Deploy Config | Deploy /etc/docker/daemon.json
+#   template: src=docker_config.j2 dest=/etc/docker/daemon.json
+#   notify: Docker | Restart Docker
 
 #### THESE ALLOW NOT USING TEMPLATE FILE ###
 - name: Docker | Deploy Config | Set the Docker configuration

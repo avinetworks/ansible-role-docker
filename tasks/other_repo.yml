@@ -1,3 +1,4 @@
+---
 - name: Docker Legacy | Start Installation | Other repo
   package: name=docker-engine
   when: docker_repo == "other" and docker_edition == "legacy"

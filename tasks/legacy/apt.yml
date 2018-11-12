@@ -10,24 +10,24 @@
     keyserver: hkp://p80.pool.sks-keyservers.net:80
     id: 58118E89F3A912897C070ADBF76221572C52609D
 
-#Docker’s APT repository contains Docker 1.7.1 and higher.
+# Docker’s APT repository contains Docker 1.7.1 and higher.
 - name: APT | Configure Docker repository
   apt_repository:
     repo: "deb https://apt.dockerproject.org/repo {{ ansible_distribution|lower}}-{{ ansible_distribution_release }} main"
     state: present
 
-#For Ubuntu Trusty, Wily, and Xenial, it’s recommended to install the linux-image-extra kernel package.
-#The linux-image-extra package allows you use the aufs storage driver.
+# For Ubuntu Trusty, Wily, and Xenial, it’s recommended to install the linux-image-extra kernel package.
+# The linux-image-extra package allows you use the aufs storage driver.
 - name: Ubuntu | Install the linux-image-extra kernal package
   apt: name="linux-image-extra-{{ ansible_kernel }}" state=present
   when: ansible_distribution == 'Ubuntu' and ansible_distribution_version in ['14.04','15.10']
 
-#If you are installing on Ubuntu 14.04 or 12.04, apparmor is required.
+# If you are installing on Ubuntu 14.04 or 12.04, apparmor is required.
 - name: Ubuntu | Install AppArmor Dependency
   apt: name=apparmor state=present
   when: ansible_distribution == 'Ubuntu' and ansible_distribution_version in ['14.04','12.04']
 
-#Docker requires that your kernel be set to 3.13 or higher.
+# Docker requires that your kernel be set to 3.13 or higher.
 - name: Ubuntu | Update Kernel Version to >= 3.13
   apt: name={{ item }} state=present
   with_items:
@@ -35,7 +35,7 @@
     - linux-headers-generic-lts-trusty
   when: ansible_distribution == 'Ubuntu' and ansible_distribution_version == '12.04'
 
-#Before we start docker, we need to make sure the system is running on Kernel 3.13 or higher.
+# Before we start docker, we need to make sure the system is running on Kernel 3.13 or higher.
 - name: Ubuntu | Update Kernel Version to >= 3.13 | Reboot Host
   command: sleep 2 && shutdown -r now "Ansible updates triggered"
   async: 1
@@ -53,6 +53,6 @@
 - name: APT | Remove old repo lxc-docker
   apt: name=lxc-docker state=absent
 
-#Install newer version of docker.
+# Install newer version of docker.
 - name: APT | Install Docker Engine
   apt: name=docker-engine state=present
