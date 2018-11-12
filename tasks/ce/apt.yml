@@ -1,21 +1,23 @@
 ---
 - name: Docker | CE | APT | Install Prerequisits for APT
-  apt: name="{{ item }}" state=present
-  with_items:
-    - apt-transport-https
-    - ca-certificates
-    - curl
-    - software-properties-common
+  apt:
+    name:
+      - apt-transport-https
+      - ca-certificates
+      - curl
+      - software-properties-common
+    state: present
 
 - name: Docker | CE | APT | Perform specific os tasks
   include: os/{{ ansible_distribution|lower }}.yml
 
 - name: Docker | CE | APT | Remove old repo lxc-docker
-  apt: name={{ item }} state=absent
-  with_items:
-    - lxc-docker
-    - docker
-    - docker-engine
+  apt:
+    name:
+      - docker
+      - docker-engine
+      - docker-io
+    state: absent
 
 - name: Docker | CE | APT | Install Docker Engine
   apt: name=docker-ce state=present
