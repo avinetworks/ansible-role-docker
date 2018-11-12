@@ -13,6 +13,7 @@ env:
     - ROLE_NAME: docker
   matrix:
     - MOLECULE_DISTRO: centos/systemd
+      MOLECULE_COMMAND: /usr/sbin/init
     - MOLECULE_DISTRO: ubuntu:trusty
     - MOLECULE_DISTRO: ubuntu:xenial
     - MOLECULE_DISTRO: ubuntu:bionic
