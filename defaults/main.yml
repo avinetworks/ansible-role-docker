@@ -1,5 +1,6 @@
 ---
 # defaults file for avinetworks.docker
+docker_service_enabled: true
 docker_config: {}
 docker_edition: ce
 docker_repo: docker
