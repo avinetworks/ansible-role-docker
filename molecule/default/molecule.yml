@@ -9,11 +9,11 @@ lint:
     config-file: molecule/default/.yamllint
 platforms:
   - name: instance
-    image: ${MOLECULE_DISTRO:-centos:7}
+    image: ${MOLECULE_DISTRO:-ubuntu:xenial}
     privileged: true
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
-    command: /usr/sbin/init
+    command: ${MOLECULE_COMMAND:-/sbin/init}
 provisioner:
   name: ansible
   lint:
