@@ -29,6 +29,13 @@
 
 - name: Docker | Ensure service starts at boot
   service: name=docker enabled={{ docker_service_enabled }}
+  when: ansible_service_mgr|lower != "systemd"
+
+- name: chrony | systemd | enable docker service
+  systemd:
+    name: docker
+    enabled: true
+  when: ansible_service_mgr|lower == "systemd"
 
 - name: Docker | Deploy Config
   include: deploy_config.yml
@@ -41,3 +48,9 @@
 
 - name: Docker | Ensure service started
   service: name=docker state=started
+
+- name: Docker | systemd | start docker service
+  systemd:
+    name: docker
+    state: started
+  when: ansible_service_mgr|lower == "systemd"
