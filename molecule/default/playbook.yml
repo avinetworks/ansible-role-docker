@@ -2,8 +2,14 @@
 - name: Converge
   hosts: all
   pre_tasks:
+    - name: Remove fakesystemd
+      yum: name=fakesystemd state=absent
+      when: ansible_os_family == "RedHat"
     - name: Install systemd
-      shell: yum -y swap -- remove fakesystemd -- install systemd systemd-libs
+      yum:
+        name:
+          - systemd
+          - systemd-libs
       when: ansible_os_family == "RedHat"
   roles:
     - role: avinetworks.docker
