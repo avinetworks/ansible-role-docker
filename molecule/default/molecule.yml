@@ -18,7 +18,7 @@ platforms:
 provisioner:
   name: ansible
   options:
-    - vvv: true
+    - vvv
   lint:
     name: ansible-lint
   playbooks:
