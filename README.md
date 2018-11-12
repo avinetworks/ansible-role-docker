@@ -124,8 +124,8 @@ Please see [examples/](examples/) folder for more examples.
 
 ## License
 
-MIT
+Apache 2.0
 
 ## Author Information
 
-Eric Anderson
+[Avi Networks](http://avinetworks.com)
