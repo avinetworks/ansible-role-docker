@@ -3,4 +3,3 @@
   hosts: all
   roles:
     - role: avinetworks.docker
-      docker_service_enabled: false
