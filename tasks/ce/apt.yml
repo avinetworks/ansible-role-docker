@@ -19,6 +19,6 @@
       - docker-io
     state: absent
 
-- name: Docker | CE | APT | Install Docker Engine
+- name: Docker | CE | APT | Install docker-ce
   apt: name=docker-ce state=present
   notify: Docker | Restart Docker

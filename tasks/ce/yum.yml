@@ -28,6 +28,6 @@
 #     - docker-common
 #     - docker-engine
 
-- name: Docker | CE | YUM | Install Docker Application
+- name: Docker | CE | YUM | Install docker-ce
   yum: name=docker-ce   state=present
   notify: Docker | Restart Docker
