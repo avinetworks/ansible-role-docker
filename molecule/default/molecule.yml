@@ -17,6 +17,8 @@ platforms:
     command: ${MOLECULE_COMMAND:-"sleep infinity"}
 provisioner:
   name: ansible
+  options:
+    - vvv: true
   lint:
     name: ansible-lint
   playbooks:
