@@ -15,6 +15,9 @@ env:
     - MOLECULE_DISTRO: ubuntu:trusty
     - MOLECULE_DISTRO: ubuntu:xenial
     - MOLECULE_DISTRO: ubuntu:bionic
+    - MOLECULE_DISTRO: debian:wheezy
+    - MOLECULE_DISTRO: debian:jessie
+    - MOLECULE_DISTRO: debian:stretch
 
 install:
   - pip install molecule docker
