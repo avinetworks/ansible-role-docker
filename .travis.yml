@@ -12,7 +12,7 @@ env:
   global:
     - ROLE_NAME: docker
   matrix:
-    - MOLECULE_DISTRO: centos:7
+    - MOLECULE_DISTRO: centos:systemd
     - MOLECULE_DISTRO: ubuntu:trusty
     - MOLECULE_DISTRO: ubuntu:xenial
     - MOLECULE_DISTRO: ubuntu:bionic
