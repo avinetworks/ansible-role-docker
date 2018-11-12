@@ -17,7 +17,6 @@
     enabled: yes
     file: docker-ce
   when: docker_channel == "edge"
-  notify: Docker | CE | YUM | Upgrade to Edge
 
 - name: Docker | CE | YUM | Perform specific os tasks
   include: os/{{ ansible_distribution|lower }}.yml

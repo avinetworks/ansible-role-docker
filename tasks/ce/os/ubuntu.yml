@@ -35,4 +35,3 @@
     repo: "{{ docker_apt_repo_url_edge }}"
     state: present
   when: docker_channel == "edge"
-  notify: Docker | CE | APT | Upgrade to Edge
