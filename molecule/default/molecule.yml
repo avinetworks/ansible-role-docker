@@ -13,6 +13,7 @@ platforms:
     privileged: true
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
+      - /var/run/docker.sock:/var/run/docker.sock
     command: ${MOLECULE_COMMAND:-"sleep infinity"}
 provisioner:
   name: ansible
