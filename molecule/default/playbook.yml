@@ -3,4 +3,3 @@
   hosts: all
   roles:
     - role: avinetworks.docker
-      docker_apt_key_validate_certs: false
