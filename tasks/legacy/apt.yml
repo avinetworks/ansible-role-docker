@@ -3,7 +3,7 @@
   apt:
     name:
       - apt-transport-https
-      - ca-certificates 
+      - ca-certificates
 
 - name: APT | Add Docker GPG Key
   apt_key:
