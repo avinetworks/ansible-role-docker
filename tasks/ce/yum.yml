@@ -10,7 +10,7 @@
 - name: Docker | CE | YUM | Add repository key
   rpm_key:
     key: "{{ docker_ce_gpg_key }}"
-  register: docker_ce_import_rpm_key
+  register: docker_ce_import_key
   ignore_errors: true
 
 - name: Docker | CE | YUM | Add repository key (systems without SNI)
@@ -23,7 +23,7 @@
       shell: rpm --import /tmp/docker-gpg
     - name: Docker | CE | YUM | Remove docker-gpg from tmp folder
       file: path=/tmp/docker-gpg state=absent
-  when: docker_ce_import_rpm_key is failed
+  when: docker_ce_import_key is failed
 
 - name: Docker | CE | YUM | Deploy repository
   get_url:

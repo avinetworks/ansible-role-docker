@@ -17,14 +17,21 @@
       - gnupg2
     state: present
 
-- name: Docker | CE | APT | Perform specific os tasks
-  include: os/{{ ansible_distribution|lower }}.yml
-
 - name: Docker | CE | APT | Add Docker GPG Key
   apt_key:
-    id: "{{ docker_apt_key_id }}"
-    url: "{{ docker_apt_key_url }}"
-    validate_certs: "{{ docker_apt_key_validate_certs }}"
+    id: "{{ docker_ce_key_id }}"
+    url: "{{ docker_ce_gpg_key }}"
+    validate_certs: "{{ docker_ce_gpg_key_validate_certs }}"
+  register: docker_ce_import_key
+  ignore_errors: true
+
+- name: Docker | CE | APT | Add repository key (systems without SNI)
+  block:
+    - name: Docker | CE | APT | Ensure curl is present (systems without SNI).
+      package: name=curl
+    - name: Docker | CE | APT | Download GPG key (systems without SNI).
+      shell: "curl -sSL {{ docker_ce_gpg_key }} | sudo apt-key add -"
+  when: docker_ce_import_key is failed
 
 - name: Docker | CE | APT | Configure Docker repository
   apt_repository:
@@ -34,6 +41,11 @@
   apt_repository:
     repo: "{{ docker_apt_repo_url_edge }}"
   when: docker_channel == "edge"
+
+
+
+- name: Docker | CE | APT | Perform specific os tasks
+  include: os/{{ ansible_distribution|lower }}.yml
 
 - name: Docker | CE | APT | Install docker-ce
   apt: name=docker-ce state=present

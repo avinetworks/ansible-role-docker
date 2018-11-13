@@ -62,8 +62,3 @@ docker_options:
   tlsverify: "{{ docker_tlsverify | default(None) }}"
   userland-proxy: "{{ docker_userland_proxy | default(None) }}"
   userns-remap: "{{ docker_userns_remap | default(None) }}"
-
-# Apt Repository Information
-docker_apt_key_id: 0EBFCD88
-docker_apt_key_url: https://download.docker.com/linux/ubuntu/gpg
-docker_apt_key_validate_certs: true
