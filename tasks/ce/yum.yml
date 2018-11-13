@@ -1,5 +1,12 @@
 ---
 
+# - name: Docker | CE | YUM | Remove older Docker installations
+#   yum: name={{ item }} state=absent
+#   with_items:
+#     - docker
+#     - docker-common
+#     - docker-engine
+
 - name: Docker | CE | YUM | Add repository key
   rpm_key:
     key: "{{ docker_ce_gpg_key }}"
@@ -51,13 +58,6 @@
 
 - name: Docker | CE | YUM | Perform specific os tasks
   include_tasks: os/{{ ansible_distribution|lower }}.yml
-
-# - name: Docker | CE | YUM | Remove older Docker installations
-#   yum: name={{ item }} state=absent
-#   with_items:
-#     - docker
-#     - docker-common
-#     - docker-engine
 
 - name: Docker | CE | YUM | Install docker-ce
   yum:
