@@ -14,6 +14,14 @@ env:
   matrix:
     - MOLECULE_DISTRO: centos/systemd
       MOLECULE_COMMAND: /usr/sbin/init
+    - MOLECULE_DISTRO: centos:6
+    - MOLECULE_DISTRO: centos:7
+    - MOLECULE_DISTRO: fedora:26
+    - MOLECULE_DISTRO: fedora:27
+    - MOLECULE_DISTRO: fedora:28
+    - MOLECULE_DISTRO: fedora:29
+    - MOLECULE_DISTRO: opensuse/leap:15
+    - MOLECULE_DISTRO: opensuse/leap:42
     - MOLECULE_DISTRO: ubuntu:trusty
     - MOLECULE_DISTRO: ubuntu:xenial
     - MOLECULE_DISTRO: ubuntu:bionic

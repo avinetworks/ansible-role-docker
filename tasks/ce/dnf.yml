@@ -7,13 +7,11 @@
 #     - docker-engine
 
 - name: Docker | CE | DNF | Add repository key
-  rpm_key:
-    key: "{{ docker_ce_gpg_key }}"
-  register: docker_ce_import_rpm_key
-  ignore_errors: true
-
-- name: Docker | CE | DNF | Add repository key (systems without SNI)
   block:
+    - name: Docker | CE | DNF | Add repository key
+      rpm_key:
+        key: "{{ docker_ce_gpg_key }}"
+  rescue:
     - name: Docker | CE | DNF | Ensure curl is present (systems without SNI).
       package: name=curl
     - name: Docker | CE | DNF | Download GPG key (systems without SNI).
@@ -22,7 +20,6 @@
       shell: rpm --import /tmp/docker-gpg
     - name: Docker | CE | DNF | Remove docker-gpg from tmp folder
       file: path=/tmp/docker-gpg state=absent
-  when: docker_ce_import_rpm_key is failed
 
 - name: Docker | CE | DNF | Deploy repository
   block:
@@ -39,7 +36,7 @@
     - name: Docker | CE | DNF | Deploy repository (systems without SNI)
       shell: "dnf config-manager --add-repo {{ docker_ce_repo_file_url }}"
       args:
-        creates: /etc/dnf.repos.d/docker-ce.repo
+        creates: /etc/yum.repos.d/docker-ce.repo
 
 - name: Docker | CE | DNF | Enable edge repository
   dnf_repository:
