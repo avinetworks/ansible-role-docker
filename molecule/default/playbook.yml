@@ -6,5 +6,13 @@
       package:
         name: python
         state: latest
+    - name: create containerd folder
+      file:
+        path: /etc/systemd/system/containerd.service.d
+        state: directory
+    - name: override file for containerd
+      copy:
+        src: files/override.conf
+        dest: /etc/systemd/system/containerd.service.d/override.conf
   roles:
     - role: avinetworks.docker
