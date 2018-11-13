@@ -1,4 +1,10 @@
 ---
+# - name: Docker | CE | DNF | Remove older Docker installations
+#   dnf: name={{ item }} state=absent
+#   with_items:
+#     - docker
+#     - docker-common
+#     - docker-engine
 
 - name: Docker | CE | DNF | Add repository key
   rpm_key:
@@ -48,13 +54,6 @@
 
 - name: Docker | CE | DNF | Perform specific os tasks
   include_tasks: os/{{ ansible_distribution|lower }}.yml
-
-# - name: Docker | CE | DNF | Remove older Docker installations
-#   dnf: name={{ item }} state=absent
-#   with_items:
-#     - docker
-#     - docker-common
-#     - docker-engine
 
 - name: Docker | CE | DNF | Install docker-ce
   dnf:

@@ -1,5 +1,4 @@
 ---
-
 # - name: Docker | CE | YUM | Remove older Docker installations
 #   yum: name={{ item }} state=absent
 #   with_items:
