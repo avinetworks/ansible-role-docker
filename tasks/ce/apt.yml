@@ -21,7 +21,7 @@
   block:
     - name: Docker | CE | APT | Add Docker GPG Key
       apt_key:
-        id: "{{ docker_ce_key_id }}"
+        id: "{{ docker_ce_gpg_key_id }}"
         url: "{{ docker_ce_gpg_key }}"
         validate_certs: "{{ docker_ce_gpg_key_validate_certs }}"
   rescue:
