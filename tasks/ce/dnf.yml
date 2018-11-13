@@ -53,7 +53,7 @@
   include_tasks: "{{ item }}"
   with_first_found:
     - os/{{ ansible_distribution.split(' ', 1)[0]|lower }}.yml
-    - default.yml
+    - os/default.yml
 
 - name: Docker | CE | DNF | Install docker-ce
   dnf:
