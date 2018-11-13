@@ -50,7 +50,10 @@
   when: docker_channel == "edge"
 
 - name: Docker | CE | DNF | Perform specific os tasks
-  include_tasks: os/{{ ansible_distribution|lower }}.yml
+  include_tasks: "{{ item }}"
+  with_first_found:
+    - os/{{ ansible_distribution.split(' ', 1)[0]|lower }}.yml
+    - default.yml
 
 - name: Docker | CE | DNF | Install docker-ce
   dnf:

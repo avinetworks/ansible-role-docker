@@ -40,7 +40,10 @@
   when: docker_channel == "edge"
 
 - name: Docker | CE | APT | Perform specific os tasks
-  include: os/{{ ansible_distribution|lower }}.yml
+  include_tasks: "{{ item }}"
+  with_first_found:
+    - os/{{ ansible_distribution.split(' ', 1)[0]|lower }}.yml
+    - default.yml
 
 - name: Docker | CE | APT | Install docker-ce
   apt: name=docker-ce state=present
