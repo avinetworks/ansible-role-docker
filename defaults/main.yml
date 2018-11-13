@@ -66,5 +66,6 @@ docker_options:
 # Apt Repository Information
 docker_apt_key_id: 0EBFCD88
 docker_apt_key_url: https://download.docker.com/linux/ubuntu/gpg
+docker_apt_key_validate_certs: true
 docker_apt_repo_url: "deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable"
 docker_apt_repo_url_edge: "deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} edge"
