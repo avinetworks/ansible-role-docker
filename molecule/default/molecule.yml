@@ -11,6 +11,7 @@ platforms:
   - name: instance
     image: ${MOLECULE_DISTRO:-ubuntu:xenial}
     privileged: true
+    service_manager: systemd
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
       - /var/run/docker.sock:/var/run/docker.sock

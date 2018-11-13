@@ -16,6 +16,7 @@ env:
       MOLECULE_COMMAND: /usr/sbin/init
     - MOLECULE_DISTRO: centos:6
     - MOLECULE_DISTRO: centos:7
+    - MOLECULE_COMMAND: /usr/sbin/init
     - MOLECULE_DISTRO: fedora:26
     - MOLECULE_DISTRO: fedora:27
     - MOLECULE_DISTRO: fedora:28
