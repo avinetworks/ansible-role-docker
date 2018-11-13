@@ -10,9 +10,11 @@
       file:
         path: /etc/systemd/system/containerd.service.d
         state: directory
+      when: ansible_service_mgr == "systemd"
     - name: override file for containerd
       copy:
         src: files/override.conf
         dest: /etc/systemd/system/containerd.service.d/override.conf
+      when: ansible_service_mgr == "systemd"
   roles:
     - role: avinetworks.docker
