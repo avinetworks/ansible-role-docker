@@ -17,8 +17,14 @@ env:
       MOLECULE_SERVICE_MANAGER: systemd
       MOLECULE_COMMAND: /usr/sbin/init
     - MOLECULE_DISTRO: fedora:27
+      MOLECULE_SERVICE_MANAGER: systemd
+      MOLECULE_COMMAND: /usr/sbin/init
     - MOLECULE_DISTRO: fedora:28
+      MOLECULE_SERVICE_MANAGER: systemd
+      MOLECULE_COMMAND: /usr/sbin/init
     - MOLECULE_DISTRO: fedora:29
+      MOLECULE_SERVICE_MANAGER: systemd
+      MOLECULE_COMMAND: /usr/sbin/init
     - MOLECULE_DISTRO: opensuse/leap:15
     - MOLECULE_DISTRO: opensuse/leap:42
     - MOLECULE_DISTRO: ubuntu-upstart:trusty
