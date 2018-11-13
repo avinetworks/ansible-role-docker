@@ -42,8 +42,6 @@
     repo: "{{ docker_apt_repo_url_edge }}"
   when: docker_channel == "edge"
 
-
-
 - name: Docker | CE | APT | Perform specific os tasks
   include: os/{{ ansible_distribution|lower }}.yml
 
