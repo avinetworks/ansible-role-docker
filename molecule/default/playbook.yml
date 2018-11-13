@@ -1,8 +1,6 @@
 ---
 - name: Converge
   hosts: all
-  pre_tasks:
-    - name: upgrade python
-      package: name=python state=latest
   roles:
     - role: avinetworks.docker
+      docker_apt_key_validate_certs: false
