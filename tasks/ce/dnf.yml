@@ -39,7 +39,7 @@
         creates: /etc/yum.repos.d/docker-ce.repo
 
 - name: Docker | CE | DNF | Enable edge repository
-  dnf_repository:
+  yum_repository:
     name: docker-ce-edge
     description: "Docker CE Edge - $basearch"
     baseurl: "{{ docker_ce_edge_repo_url }}"
