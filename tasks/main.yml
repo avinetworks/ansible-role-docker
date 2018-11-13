@@ -1,5 +1,10 @@
 ---
 # tasks file for avinetworks.docker
+- name: Docker | Display all variables/facts known for a host
+  debug:
+    var: hostvars[inventory_hostname]
+    verbosity: 4
+
 - name: Check ansible version
   when:
     - ansible_version.full is version_compare('2.4', '<')
@@ -26,9 +31,9 @@
   set_fact:
     docker_edition: legacy
   when:
-    - ( ansible_distribution|lower == "centos" and ansible_distribution_major_version == "6" )
-    - ( ansible_distribution|lower == "redhat" and ansible_distribution_major_version == "6" )
-    - ( ansible_distribution|lower == "oraclelinux" and ansible_distribution_major_version == "6" )
+    - ( ansible_distribution|lower == "centos" and ansible_distribution_major_version == 6 )
+    - ( ansible_distribution|lower == "redhat" and ansible_distribution_major_version == 6 )
+    - ( ansible_distribution|lower == "oraclelinux" and ansible_distribution_major_version == 6 )
 
 - name: Docker | Start Installation
   include_tasks: "{{ docker_edition }}/{{ ansible_pkg_mgr }}.yml"
