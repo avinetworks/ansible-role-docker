@@ -9,19 +9,3 @@
 - name: Docker | CE | Ubuntu | Install AppArmor Dependency
   apt: name=apparmor state=present
   when: ansible_distribution_version in "14.04"
-
-- name: Docker | CE | APT | Add Docker GPG Key
-  apt_key:
-    id: "{{ docker_apt_key_id }}"
-    url: "{{ docker_apt_key_url }}"
-    validate_certs: "{{ docker_apt_key_validate_certs }}"
-
-# Docker’s APT repository contains Docker 1.7.1 and higher.
-- name: Docker | CE | APT | Configure Docker repository
-  apt_repository:
-    repo: "{{ docker_apt_repo_url }}"
-
-- name: Docker | CE | APT | Enable Edge repository
-  apt_repository:
-    repo: "{{ docker_apt_repo_url_edge }}"
-  when: docker_channel == "edge"
