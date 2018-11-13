@@ -16,7 +16,6 @@ env:
     - MOLECULE_DISTRO: centos:7
       MOLECULE_SERVICE_MANAGER: systemd
       MOLECULE_COMMAND: /usr/sbin/init
-    - MOLECULE_DISTRO: fedora:26
     - MOLECULE_DISTRO: fedora:27
     - MOLECULE_DISTRO: fedora:28
     - MOLECULE_DISTRO: fedora:29
