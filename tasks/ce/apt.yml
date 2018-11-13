@@ -1,4 +1,12 @@
 ---
+- name: Docker | CE | APT | Remove old repo lxc-docker
+  apt:
+    name:
+      - docker
+      - docker-engine
+      - docker-io
+    state: absent
+
 - name: Docker | CE | APT | Install Prerequisits for APT
   apt:
     name:
@@ -6,6 +14,7 @@
       - ca-certificates
       - curl
       - software-properties-common
+      - gnupg2
     state: present
 
 - name: Docker | CE | APT | Perform specific os tasks

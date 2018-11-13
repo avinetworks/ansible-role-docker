@@ -1,0 +1,4 @@
+---
+
+docker_apt_repo_url: "deb [arch=amd64] https://download.docker.com/linux/debian {{ ansible_distribution_release }} stable"
+docker_apt_repo_url_edge: "deb [arch=amd64] https://download.docker.com/linux/debian {{ ansible_distribution_release }} edge"

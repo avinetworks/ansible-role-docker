@@ -6,7 +6,7 @@
   debug: msg="This role works best with ansible version 2.4 or greater. It is recommended to use the latest ansible version for the best experience."
 
 - name: Docker | Include Specific Variables
-  include_vars: "{{ ansible_distribution }}.yml"
+  include_vars: "{{ ansible_distribution|lower }}.yml"
 
 - name: Docker | EE | Check Requirements
   fail:
@@ -16,25 +16,25 @@
     - docker_edition == "ee"
 
 - name: Docker | Storage Driver
-  include: "storage_drivers/{{ docker_storage_driver }}.yml"
+  include_tasks: "storage_drivers/{{ docker_storage_driver }}.yml"
   when: docker_storage_driver is defined
 
 - name: Docker | Start Installation
-  include: "{{ docker_edition }}/{{ ansible_pkg_mgr }}.yml"
+  include_tasks: "{{ docker_edition }}/{{ ansible_pkg_mgr }}.yml"
   when: docker_repo == "docker"
 
 - name: Docker | Start Installation | Other repo
-  include: other_repo.yml
+  include_tasks: other_repo.yml
   when: docker_repo == "other"
 
 - name: Docker | Ensure service starts at boot
   service: name=docker enabled={{ docker_service_enabled }}
 
 - name: Docker | Deploy Config
-  include: deploy_config.yml
+  include_tasks: deploy_config.yml
 
 - name: Docker | Proxy configuration
-  include: proxy.yml
+  include_tasks: proxy.yml
   when: docker_http_proxy is defined or
         docker_https_proxy is defined or
         docker_no_proxy_params is defined
