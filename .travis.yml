@@ -22,7 +22,8 @@ env:
     - MOLECULE_DISTRO: fedora:29
     - MOLECULE_DISTRO: opensuse/leap:15
     - MOLECULE_DISTRO: opensuse/leap:42
-    - MOLECULE_DISTRO: ubuntu:trusty
+    - MOLECULE_DISTRO: ubuntu-upstart:trusty
+      MOLECULE_COMMAND: /sbin/init
     - MOLECULE_DISTRO: ubuntu:xenial
     - MOLECULE_DISTRO: ubuntu:bionic
     - MOLECULE_DISTRO: debian:wheezy
