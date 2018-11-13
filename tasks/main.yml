@@ -22,6 +22,14 @@
   include_tasks: "storage_drivers/{{ docker_storage_driver }}.yml"
   when: docker_storage_driver is defined
 
+- name: Docker | Manage OS not supported by docker-ce
+  set_fact:
+    docker_edition: legacy
+  when:
+    - ( ansible_distribution|lower == "centos" and ansible_distribution_major_version == "6" )
+    - ( ansible_distribution|lower == "redhat" and ansible_distribution_major_version == "6" )
+    - ( ansible_distribution|lower == "oraclelinux" and ansible_distribution_major_version == "6" )
+
 - name: Docker | Start Installation
   include_tasks: "{{ docker_edition }}/{{ ansible_pkg_mgr }}.yml"
   when: docker_repo == "docker"
