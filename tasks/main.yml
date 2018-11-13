@@ -5,8 +5,11 @@
     - ansible_version.full is version_compare('2.4', '<')
   debug: msg="This role works best with ansible version 2.4 or greater. It is recommended to use the latest ansible version for the best experience."
 
-- name: Docker | Include Specific Variables
-  include_vars: "{{ ansible_distribution|lower }}.yml"
+- name: Docker | Include {{ ansible_distribution }} specific variables
+  include_vars: "ansible_distribution/{{ ansible_distribution|lower }}.yml"
+
+- name: Docker | Include {{ ansible_os_family }} specific variables
+  include_vars: "ansible_os_family/{{ ansible_os_family|lower }}.yml"
 
 - name: Docker | EE | Check Requirements
   fail:

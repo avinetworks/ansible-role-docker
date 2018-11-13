@@ -1,11 +1,7 @@
 ---
-- name: Docker | Storage Driver | Btrfs | Debian | Install Btrfs package
-  apt: name=btrfs-tools state=present
+- name: Docker | Storage Driver | Btrfs | Install Btrfs package
+  package: name={{ docker_btrfs_package }} state=present
   when: ansible_os_family == "Debian"
-
-- name: Docker | Storage Driver | Btrfs | RedHat | Install Btrfs package
-  yum: name=btrfs-progs state=present
-  when: ansible_os_family == "RedHat"
 
 - name: Docker | Storage Driver | Btrfs | Enable btrfs driver
   modprobe:
@@ -19,7 +15,7 @@
 
 - name: Docker | Storage Driver | Btrfs | Create the /var/lib/docker folder
   file:
-    dest: /var/lib/docker 
+    dest: /var/lib/docker
     state: directory
 
 - name: Docker | Storage Driver | Btrfs | Mount the filesystem
