@@ -21,6 +21,8 @@ provisioner:
     vvv: true
   lint:
     name: ansible-lint
+    options:
+      x: ["ANSIBLE0010"]
   playbooks:
     converge: ${MOLECULE_PLAYBOOK:-playbook.yml}
 scenario:
