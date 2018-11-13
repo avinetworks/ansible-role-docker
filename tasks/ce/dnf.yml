@@ -21,7 +21,7 @@
 - name: Docker | CE | DNF | Deploy repository
   get_url:
     url: "{{ docker_ce_repo_file_url }}"
-    dest: /etc/dnf.repos.d/docker-ce.repo
+    dest: /etc/yum.repos.d/docker-ce.repo
     owner: root
     group: root
     mode: 0644
