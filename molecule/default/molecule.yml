@@ -15,7 +15,7 @@ platforms:
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
       - /var/run/docker.sock:/var/run/docker.sock
-    command: ${MOLECULE_COMMAND:-"{{ omit }}"}
+    command: ${MOLECULE_COMMAND:-'{{ omit }}'}
 provisioner:
   name: ansible
   options:
