@@ -19,24 +19,21 @@
   when: docker_ce_import_rpm_key is failed
 
 - name: Docker | CE | DNF | Deploy repository
-  get_url:
-    url: "{{ docker_ce_repo_file_url }}"
-    dest: /etc/yum.repos.d/docker-ce.repo
-    owner: root
-    group: root
-    mode: 0644
-  register: docker_ce_add_repo
-  ignore_errors: true
-
-- name: Docker | CE | DNF | Deploy repository (systems without SNI)
   block:
+    - name: Docker | CE | DNF | Deploy repository
+      get_url:
+        url: "{{ docker_ce_repo_file_url }}"
+        dest: /etc/yum.repos.d/docker-ce.repo
+        owner: root
+        group: root
+        mode: 0644
+  rescue:
     - name: Docker | CE | DNF | Install dnf-utils (systems without SNI)
       dnf: name=dnf-plugins-core
     - name: Docker | CE | DNF | Deploy repository (systems without SNI)
       shell: "dnf config-manager --add-repo {{ docker_ce_repo_file_url }}"
       args:
         creates: /etc/dnf.repos.d/docker-ce.repo
-  when: docker_ce_add_repo is failed
 
 - name: Docker | CE | DNF | Enable edge repository
   dnf_repository:
