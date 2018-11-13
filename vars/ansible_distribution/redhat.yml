@@ -1,4 +1,9 @@
 ---
 # RHEL vars file for avinetworks.docker
 
-docker_package_directory: "centos"
+docker_ce_yum_repo_url: https://download.docker.com/linux/centos
+docker_ce_yum_repo_file_url: "{{ docker_yum_repo_url }}/docker-ce.repo"
+docker_ce_yum_gpg_key: "{{ docker_yum_repo_url }}/centos/gpg"
+
+docker_legacy_yum_repo_url: https://yum.dockerproject.org/repo/main/centos/{{ ansible_distribution_major_version }}
+docker_legacy_yum_gpg_key: https://yum.dockerproject.org/gpg

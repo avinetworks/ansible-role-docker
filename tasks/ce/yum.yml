@@ -1,16 +1,50 @@
 ---
+
+- name: Docker | CE | YUM | Add repository key
+  rpm_key:
+    key: {{ docker_ce_yum_gpg_key }}
+  register: docker_ce_import_rpm_key
+  ignore_errors: true
+
+- name: Docker | CE | YUM | Add repository key (systems without SNI)
+  block:
+    - name: Docker | CE | YUM | Ensure curl is present (systems without SNI).
+      package: name=curl
+    - name: Docker | CE | YUM | Download GPG key (systems without SNI).
+      shell: "curl -sSL {{ docker_ce_yum_gpg_key }} -o /tmp/docker-gpg"
+    - name: Docker | CE | YUM | Add Docker GPG key (systems without SNI).
+      shell: rpm --import /tmp/docker-gpg
+    - name: Docker | CE | YUM | Remove docker-gpg from tmp folder
+      file: path=/tmp/docker-gpg state=absent
+  when: docker_ce_import_rpm_key is failed
+
 - name: Docker | CE | YUM | Deploy repository
   get_url:
-    url: https://download.docker.com/linux/centos/docker-ce.repo
+    url: "{{ docker_ce_yum_repo_file_url }}"
     dest: /etc/yum.repos.d/docker-ce.repo
+    owner: root
+    group: root
+    mode: 0644
+  register: docker_ce_add_yum_repo
+  ignore_errors: true
+
+- name: Docker | CE | YUM | Deploy repository (systems without SNI)
+  block:
+    - name: Docker | CE | YUM | Install yum-utils (systems without SNI)
+      yum: name=yum-utils
+    - name: Docker | CE | YUM | Deploy repository (systems without SNI)
+      shell: "yum-config-manager --add-repo {{ docker_ce_yum_repo_file_url }}"
+      args:
+        creates: /etc/yum.repos.d/docker-ee.repo
+  when: docker_ce_add_yum_repo is failed
 
 - name: Docker | CE | YUM | Enable edge repository
   yum_repository:
     name: docker-ce-edge
     description: "Docker CE Edge - $basearch"
-    baseurl: "https://download.docker.com/linux/centos/7/$basearch/edge"
+    baseurl: "{{ docker_ce_yum_edge_repo_url }}"
     gpgcheck: yes
-    gpgkey: https://download.docker.com/linux/centos/gpg
+    gpgkey: "{{ docker_ce_yum_gpg_key }}"
     enabled: yes
     file: docker-ce
   when: docker_channel == "edge"
