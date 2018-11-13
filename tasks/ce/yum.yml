@@ -22,7 +22,6 @@
     - name: Docker | CE | YUM | Remove docker-gpg from tmp folder
       file: path=/tmp/docker-gpg state=absent
 
-
 - name: Docker | CE | YUM | Deploy repository
   block:
     - name: Docker | CE | YUM | Deploy repository
