@@ -2,7 +2,7 @@
 
 - name: Docker | CE | YUM | Add repository key
   rpm_key:
-    key: {{ docker_ce_yum_gpg_key }}
+    key: "{{ docker_ce_gpg_key }}"
   register: docker_ce_import_rpm_key
   ignore_errors: true
 
@@ -11,7 +11,7 @@
     - name: Docker | CE | YUM | Ensure curl is present (systems without SNI).
       package: name=curl
     - name: Docker | CE | YUM | Download GPG key (systems without SNI).
-      shell: "curl -sSL {{ docker_ce_yum_gpg_key }} -o /tmp/docker-gpg"
+      shell: "curl -sSL {{ docker_ce_gpg_key }} -o /tmp/docker-gpg"
     - name: Docker | CE | YUM | Add Docker GPG key (systems without SNI).
       shell: rpm --import /tmp/docker-gpg
     - name: Docker | CE | YUM | Remove docker-gpg from tmp folder
@@ -20,12 +20,12 @@
 
 - name: Docker | CE | YUM | Deploy repository
   get_url:
-    url: "{{ docker_ce_yum_repo_file_url }}"
+    url: "{{ docker_ce_repo_file_url }}"
     dest: /etc/yum.repos.d/docker-ce.repo
     owner: root
     group: root
     mode: 0644
-  register: docker_ce_add_yum_repo
+  register: docker_ce_add_repo
   ignore_errors: true
 
 - name: Docker | CE | YUM | Deploy repository (systems without SNI)
@@ -33,18 +33,18 @@
     - name: Docker | CE | YUM | Install yum-utils (systems without SNI)
       yum: name=yum-utils
     - name: Docker | CE | YUM | Deploy repository (systems without SNI)
-      shell: "yum-config-manager --add-repo {{ docker_ce_yum_repo_file_url }}"
+      shell: "yum-config-manager --add-repo {{ docker_ce_repo_file_url }}"
       args:
-        creates: /etc/yum.repos.d/docker-ee.repo
-  when: docker_ce_add_yum_repo is failed
+        creates: /etc/yum.repos.d/docker-ce.repo
+  when: docker_ce_add_repo is failed
 
 - name: Docker | CE | YUM | Enable edge repository
   yum_repository:
     name: docker-ce-edge
     description: "Docker CE Edge - $basearch"
-    baseurl: "{{ docker_ce_yum_edge_repo_url }}"
+    baseurl: "{{ docker_ce_edge_repo_url }}"
     gpgcheck: yes
-    gpgkey: "{{ docker_ce_yum_gpg_key }}"
+    gpgkey: "{{ docker_ce_gpg_key }}"
     enabled: yes
     file: docker-ce
   when: docker_channel == "edge"
