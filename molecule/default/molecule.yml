@@ -11,11 +11,11 @@ platforms:
   - name: instance
     image: ${MOLECULE_DISTRO:-ubuntu:xenial}
     privileged: true
-    service_manager: ${MOLECULE_SERVICE_MANAGER:-/sbin/init}
+    service_manager: ${MOLECULE_SERVICE_MANAGER:-{{ omit }}}
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
       - /var/run/docker.sock:/var/run/docker.sock
-    command: ${MOLECULE_COMMAND:-"sleep infinity"}
+    command: ${MOLECULE_COMMAND:-{{ omit }}}
 provisioner:
   name: ansible
   options:
