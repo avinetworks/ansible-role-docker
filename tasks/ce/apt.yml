@@ -20,14 +20,6 @@
 - name: Docker | CE | APT | Perform specific os tasks
   include: os/{{ ansible_distribution|lower }}.yml
 
-- name: Docker | CE | APT | Remove old repo lxc-docker
-  apt:
-    name:
-      - docker
-      - docker-engine
-      - docker-io
-    state: absent
-
 - name: Docker | CE | APT | Install docker-ce
   apt: name=docker-ce state=present
   notify: Docker | Restart Docker

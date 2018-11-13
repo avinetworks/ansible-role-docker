@@ -13,10 +13,14 @@
     state: present
 
 - name: Docker | Storage Driver | Btrfs | Create Btfs storage filesystem
-  filesystem: dev={{ docker_block_device }} fstype=btrfs
+  filesystem:
+    dev: "{{ docker_block_device }}"
+    fstype: btrfs
 
 - name: Docker | Storage Driver | Btrfs | Create the /var/lib/docker folder
-  file: dest=/var/lib/docker state=directory
+  file:
+    dest: /var/lib/docker 
+    state: directory
 
 - name: Docker | Storage Driver | Btrfs | Mount the filesystem
   mount:

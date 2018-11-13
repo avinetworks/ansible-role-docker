@@ -1,27 +1,28 @@
 ---
-- name: Docker | Storage Driver | devicemapper | Install LVM2 | YUM
-  yum: name=lvm2 state=present
-  when: ansible_pkg_mgr == 'yum'
-
-- name: Docker | Storage Driver | devicemapper | Install LVM2 | DNF
-  dnf: name=lvm2 state=present
-  when: ansible_pkg_mgr == 'dnf'
-
-- name: Docker | Storage Driver | devicemapper | Install LVM2 | APT
-  apt: name=lvm2 state=present
-  when: ansible_pkg_mgr == 'apt'
+- name: Docker | Storage Driver | devicemapper | Install LVM2
+  package: name=lvm2 state=present
 
 - name: Docker | Storage Driver | devicemapper | Configure logical volume group
-  lvg: vg=docker pvs="{{ docker_block_device }}"
+  lvg:
+    vg: docker
+    pvs: "{{ docker_block_device }}"
   when: docker_block_device is defined
 
 - name: Docker | Storage Driver | devicemapper | Create thinpool volume
-  lvol: vg=docker lv=thinpool size=95%VG opts="--wipesignatures y"
+  lvol:
+    vg: docker
+    lv: thinpool
+    size: 95%VG
+    opts: "--wipesignatures y"
   register: thinpool
   when: docker_block_device is defined
 
 - name: Docker | Storage Driver | devicemapper | Create thinpoolmeta volume
-  lvol: vg=docker lv=thinpoolmeta size=1%VG opts="--wipesignatures y"
+  lvol:
+    vg: docker
+    lv: thinpoolmeta
+    size: 1%VG
+    opts: "--wipesignatures y"
   when: docker_block_device is defined
 
 - name: Docker | Storage Driver | devicemapper | Convert volumes to thinpool
@@ -29,7 +30,9 @@
   when: thinpool.changed
 
 - name: Docker | Storage Driver | devicemapper | Configure autoextension of thin pools via 'lvm' profile
-  copy: src=docker-thinpool.profile dest=/etc/lvm/profile/docker-thinpool.profile
+  copy:
+    src: docker-thinpool.profile
+    dest: /etc/lvm/profile/docker-thinpool.profile
   register: docker_thinpool_profile
   notify: Docker | Restart Docker
   when: docker_block_device is defined
