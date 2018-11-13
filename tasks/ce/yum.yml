@@ -1,11 +1,8 @@
 ---
-- name: Docker | CE | YUM | Install yum-utils
-  yum: name=yum-utils
-
 - name: Docker | CE | YUM | Deploy repository
-  shell: yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
-  args:
-    creates: /etc/yum.repos.d/docker-ce.repo
+  get_url:
+    url: https://download.docker.com/linux/centos/docker-ce.repo
+    dest: /etc/yum.repos.d/docker-ce.repo
 
 - name: Docker | CE | YUM | Enable edge repository
   yum_repository:
@@ -19,7 +16,7 @@
   when: docker_channel == "edge"
 
 - name: Docker | CE | YUM | Perform specific os tasks
-  include: os/{{ ansible_distribution|lower }}.yml
+  include_tasks: os/{{ ansible_distribution|lower }}.yml
 
 # - name: Docker | CE | YUM | Remove older Docker installations
 #   yum: name={{ item }} state=absent
@@ -29,5 +26,7 @@
 #     - docker-engine
 
 - name: Docker | CE | YUM | Install docker-ce
-  yum: name=docker-ce   state=present
+  yum:
+    name: docker-ce
+    state: present
   notify: Docker | Restart Docker
