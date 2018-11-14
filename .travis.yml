@@ -34,6 +34,8 @@ env:
     - MOLECULE_DISTRO: debian:wheezy
     - MOLECULE_DISTRO: debian:jessie
     - MOLECULE_DISTRO: debian:stretch
+      MOLECULE_SERVICE_MANAGER: systemd
+      MOLECULE_COMMAND: /lib/systemd/systemd
 
 install:
   - pip install molecule docker

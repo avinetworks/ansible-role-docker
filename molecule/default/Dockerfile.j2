@@ -14,11 +14,9 @@ RUN if [ $(command -v apt-get) ]; then apt-get update && apt-get install -y pyth
     elif [ $(command -v xbps-install) ]; then xbps-install -Syu && xbps-install -y python sudo bash ca-certificates && xbps-remove -O; fi
 
 
-{% if item.image.split(':', 1)[1] == "bionic" %}
-RUN apt-get install systemd systemd-cron
+{% if item.image.split(':', 1)[1] in ["bionic", "stretch"] %}
+RUN apt-get install -y systemd systemd-cron && apt-get clean
 {% endif %}
-
-
 
 {% if item.service_manager == "systemd" %}
 RUN (cd /lib/systemd/system/sysinit.target.wants/; for i in *; do [ $i == systemd-tmpfiles-setup.service ] || rm -f $i; done); \
