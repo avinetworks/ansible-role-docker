@@ -14,7 +14,7 @@ platforms:
     service_manager: ${MOLECULE_SERVICE_MANAGER:-systemd}
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
-    command: ${MOLECULE_COMMAND:-/sbin/init}
+    command: ${MOLECULE_COMMAND:-sleep infinity}
 provisioner:
   name: ansible
   options:
