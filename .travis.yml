@@ -13,7 +13,7 @@ env:
     - ROLE_NAME: docker
   matrix:
     - MOLECULE_DISTRO: centos:6
-      MOLECULE_COMMAND: /usr/sbin/init
+      MOLECULE_COMMAND: /bin/bash
     - MOLECULE_DISTRO: centos:7
       MOLECULE_SERVICE_MANAGER: systemd
       MOLECULE_COMMAND: /usr/sbin/init
