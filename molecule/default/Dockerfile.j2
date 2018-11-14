@@ -14,7 +14,7 @@ RUN if [ $(command -v apt-get) ]; then apt-get update && apt-get install -y pyth
     elif [ $(command -v xbps-install) ]; then xbps-install -Syu && xbps-install -y python sudo bash ca-certificates && xbps-remove -O; fi
 
 
-{% item.image.split(':', 1)[1] == "bionic" %}
+{% if item.image.split(':', 1)[1] == "bionic" %}
 RUN apt-get install systemd systemd-cron
 {% endif %}
 
