@@ -24,7 +24,9 @@ env:
       MOLECULE_SERVICE_MANAGER: systemd
       MOLECULE_COMMAND: /usr/sbin/init
     - MOLECULE_DISTRO: opensuse/leap:15
+      MOLECULE_COMMAND: /usr/lib/systemd/systemd
     - MOLECULE_DISTRO: opensuse/leap:42
+      MOLECULE_COMMAND: /usr/lib/systemd/systemd
     - MOLECULE_DISTRO: ubuntu-upstart:trusty
       MOLECULE_COMMAND: /sbin/init
     - MOLECULE_DISTRO: ubuntu:xenial
