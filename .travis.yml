@@ -25,11 +25,14 @@ env:
     - MOLECULE_DISTRO: ubuntu-upstart:trusty
       MOLECULE_COMMAND: /sbin/init
     - MOLECULE_DISTRO: ubuntu:xenial
+      MOLECULE_COMMAND: /sbin/init
     - MOLECULE_DISTRO: ubuntu:bionic
       MOLECULE_SERVICE_MANAGER: systemd
       MOLECULE_COMMAND: /lib/systemd/systemd
     - MOLECULE_DISTRO: debian:wheezy
+      MOLECULE_COMMAND: /sbin/init
     - MOLECULE_DISTRO: debian:jessie
+      MOLECULE_COMMAND: /sbin/init
     - MOLECULE_DISTRO: debian:stretch
       MOLECULE_SERVICE_MANAGER: systemd
       MOLECULE_COMMAND: /lib/systemd/systemd
