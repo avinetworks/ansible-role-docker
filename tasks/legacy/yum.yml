@@ -1,0 +1,40 @@
+---
+- name: Docker | YUM | Oracle | Disable UEK R3 for Oracle Linux
+  yum_repository:
+    name: ol7_UEKR3
+    description: Latest Unbreakable Enterprise Kernel Release 3 for Oracle Linux $releasever ($basearch)
+    baseurl: "http://yum.oracle.com/repo/OracleLinux/OL7/UEKR3/$basearch/"
+    enabled: 0
+    gpgcheck: 1
+    gpgkey: file:///etc/pki/rpm-gpg/RPM-GPG-KEY-oracle
+  when: ansible_distribution == 'OracleLinux' and ansible_distribution_major_version == "7"
+
+- name: Docker | YUM | Oracle | Enable UEK R4 for Oracle Linux
+  yum_repository:
+    name: ol7_UEKR4
+    description: Latest Unbreakable Enterprise Kernel Release 4 for Oracle Linux $releasever ($basearch)
+    baseurl: "http://yum.oracle.com/repo/OracleLinux/OL7/UEKR4/$basearch/"
+    enabled: 1
+    gpgcheck: 1
+    gpgkey: file:///etc/pki/rpm-gpg/RPM-GPG-KEY-oracle
+  when: ansible_distribution == 'OracleLinux' and ansible_distribution_major_version == "7"
+
+- name: Docker | YUM | Remove previous docker
+  yum:
+    name:
+      - docker
+      - docker-io
+    state: absent
+
+- name: Docker | YUM | Configure Docker repository
+  yum_repository:
+    name: dockerrepo
+    description: Docker Repository
+    baseurl: "{{ docker_legacy_repo_url }}"
+    enabled: yes
+    gpgcheck: yes
+    gpgkey: "{{ docker_legacy_gpg_key }}"
+
+- name: Docker | YUM | Install Docker Application
+  yum: name=docker-engine state=present
+  notify: Docker | Restart Docker

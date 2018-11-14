@@ -1,0 +1,6 @@
+{% for key,value in docker_options.iteritems() %}
+{% if value != '' %}
+{% set myvalue = docker_config.update({ key: value }) %}
+{% endif %}
+{% endfor %}
+{{ docker_config | to_nice_json }}

@@ -1,0 +1,50 @@
+---
+- name: Docker | CE | APT | Remove old repo lxc-docker
+  apt:
+    name:
+      - docker
+      - docker-engine
+      - docker-io
+    state: absent
+
+- name: Docker | CE | APT | Install Prerequisits for APT
+  apt:
+    name:
+      - apt-transport-https
+      - ca-certificates
+      - curl
+      - software-properties-common
+      - gnupg2
+    state: present
+
+- name: Docker | CE | APT | Add repository key
+  block:
+    - name: Docker | CE | APT | Add Docker GPG Key
+      apt_key:
+        id: "{{ docker_ce_gpg_key_id }}"
+        url: "{{ docker_ce_gpg_key }}"
+        validate_certs: "{{ docker_ce_gpg_key_validate_certs }}"
+  rescue:
+    - name: Docker | CE | APT | Ensure curl is present (systems without SNI).
+      package: name=curl
+    - name: Docker | CE | APT | Download GPG key (systems without SNI).
+      shell: "curl -sSL {{ docker_ce_gpg_key }} | sudo apt-key add -"
+
+- name: Docker | CE | APT | Configure Docker repository
+  apt_repository:
+    repo: "{{ docker_apt_repo_url }}"
+
+- name: Docker | CE | APT | Enable Edge repository
+  apt_repository:
+    repo: "{{ docker_apt_repo_url_edge }}"
+  when: docker_channel == "edge"
+
+- name: Docker | CE | APT | Perform specific os tasks
+  include_tasks: "{{ item }}"
+  with_first_found:
+    - os/{{ ansible_distribution.split(' ', 1)[0]|lower }}.yml
+    - os/default.yml
+
+- name: Docker | CE | APT | Install docker-ce
+  apt: name=docker-ce state=present
+  notify: Docker | Restart Docker

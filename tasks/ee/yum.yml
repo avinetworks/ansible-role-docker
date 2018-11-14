@@ -1,0 +1,31 @@
+---
+- name: Docker | EE | Store Docker EE repository URL
+  copy:
+    content: "{{ docker_ee_url }}"
+    dest: /etc/yum/vars/dockerurl
+
+- name: Docker | EE | YUM | Install yum-utils
+  yum: name=yum-utils
+
+- name: Docker | EE | YUM | Deploy repository
+  shell: "yum-config-manager --add-repo {{ docker_ee_url }}/docker-ee.repo"
+  args:
+    creates: /etc/yum.repos.d/docker-ee.repo
+
+- name: Docker | EE | YUM | Perform specific os tasks
+  include: os/{{ ansible_distribution|lower }}.yml
+
+- name: Docker | EE | YUM | Remove older Docker installations
+  yum: name={{ item }} state=absent
+  with_items:
+    - docker
+    - docker-common
+    - docker-selinux
+    - container-selinux
+    - docker-engine-selinux
+    - docker-engine
+    - docker-ce
+
+- name: Docker | EE | YUM | Install Docker Application
+  yum: name=docker-ee state=present
+  notify: Docker | Restart Docker

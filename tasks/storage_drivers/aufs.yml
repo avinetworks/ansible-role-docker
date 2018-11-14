@@ -1,0 +1,15 @@
+---
+- name: Docker | Storage Driver | AUFS | Install dependencies for Ubuntu/Debian
+  apt:
+    name:
+      - linux-image-extra-{{ ansible_kernel }}
+      - linux-image-extra-virtual
+    state: present
+  when:
+    - ansible_distribution_version in ['14.04','15.10']
+    - ansible_distribution == "Ubuntu"
+
+- name: Docker | Storage Driver | AUFS | Enable AUFS driver
+  modprobe:
+    name: aufs
+    state: present

@@ -1,0 +1,9 @@
+---
+# Debian vars file for avinetworks.docker
+
+docker_ce_repo_url: https://download.docker.com/linux/debian
+docker_ce_gpg_key: "{{ docker_ce_repo_url }}/gpg"
+docker_ce_gpg_key_id: 9DC858229FC7DD38854AE2D88D81803C0EBFCD88
+docker_ce_gpg_key_validate_certs: true
+docker_apt_repo_url: "deb [arch=amd64] {{ docker_ce_repo_url }} {{ ansible_distribution_release }} stable"
+docker_apt_repo_url_edge: "deb [arch=amd64] {{ docker_ce_repo_url }} {{ ansible_distribution_release }} edge"

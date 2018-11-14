@@ -1,0 +1,52 @@
+---
+- name: Docker | Storage Driver | devicemapper | Install LVM2
+  package: name=lvm2 state=present
+
+- name: Docker | Storage Driver | devicemapper | Configure logical volume group
+  lvg:
+    vg: docker
+    pvs: "{{ docker_block_device }}"
+  when: docker_block_device is defined
+
+- name: Docker | Storage Driver | devicemapper | Create thinpool volume
+  lvol:
+    vg: docker
+    lv: thinpool
+    size: 95%VG
+    opts: "--wipesignatures y"
+  register: thinpool
+  when: docker_block_device is defined
+
+- name: Docker | Storage Driver | devicemapper | Create thinpoolmeta volume
+  lvol:
+    vg: docker
+    lv: thinpoolmeta
+    size: 1%VG
+    opts: "--wipesignatures y"
+  when: docker_block_device is defined
+
+- name: Docker | Storage Driver | devicemapper | Convert volumes to thinpool
+  shell: lvconvert -y --zero n -c 512K --thinpool docker/thinpool --poolmetadata docker/thinpoolmeta
+  when: thinpool.changed
+
+- name: Docker | Storage Driver | devicemapper | Configure autoextension of thin pools via 'lvm' profile
+  copy:
+    src: docker-thinpool.profile
+    dest: /etc/lvm/profile/docker-thinpool.profile
+  register: docker_thinpool_profile
+  notify: Docker | Restart Docker
+  when: docker_block_device is defined
+
+- name: Docker | Storage Driver | devicemapper | Apply 'lvm' profile
+  shell: lvchange --metadataprofile docker-thinpool docker/thinpool
+  when: docker_thinpool_profile.changed
+
+- name: Docker | Storage Driver | devicemapper | Make sure /var/lib/docker is Created
+  file: path=/var/lib/docker state=directory
+
+- set_fact:
+    docker_storage_opts:
+      - "dm.thinpooldev=/dev/mapper/docker-thinpool"
+      - "dm.use_deferred_removal=true"
+      - "dm.use_deferred_deletion=true"
+  when: docker_storage_opts is undefined

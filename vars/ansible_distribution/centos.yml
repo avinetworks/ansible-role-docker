@@ -1,0 +1,10 @@
+---
+# CentOS vars file for avinetworks.docker
+
+docker_ce_repo_url: https://download.docker.com/linux/centos
+docker_ce_repo_file_url: "{{ docker_ce_repo_url }}/docker-ce.repo"
+docker_ce_gpg_key: "{{ docker_ce_repo_url }}/gpg"
+docker_ce_edge_repo_url: "{{ docker_ce_repo_url }}/{{ ansible_distribution_major_version }}/$basearch/edge"
+
+docker_legacy_repo_url: https://yum.dockerproject.org/repo/main/centos/{{ ansible_distribution_major_version }}
+docker_legacy_gpg_key: https://yum.dockerproject.org/gpg

@@ -1,0 +1,16 @@
+---
+- name: DNF | Configure Docker repository
+  yum_repository:
+    name: dockerrepo
+    description: Docker Repository
+    baseurl: "https://yum.dockerproject.org/repo/main/{{ ansible_distribution|lower}}/{{ ansible_distribution_major_version }}/"
+    enabled: yes
+    gpgcheck: yes
+    gpgkey: https://yum.dockerproject.org/gpg
+
+- name: DNF | Remove Old Docker
+  dnf: name=docker state=absent
+
+- name: DNF | Install Docker Application
+  dnf: name=docker-engine state=present
+  notify: Docker | Restart Docker

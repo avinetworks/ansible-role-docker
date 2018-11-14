@@ -1,0 +1,8 @@
+---
+- name: Docker Legacy | Start Installation | Other repo
+  package: name=docker-engine
+  when: docker_repo == "other" and docker_edition == "legacy"
+
+- name: Docker | Start Installation | Other repo
+  package: name=docker-{{ docker_edition }}
+  when: docker_repo == "other" and docker_edition != "legacy"

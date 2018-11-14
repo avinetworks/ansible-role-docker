@@ -1,0 +1,57 @@
+---
+# tasks file for avinetworks.docker
+- name: Docker | Display all variables/facts known for a host
+  debug:
+    var: hostvars[inventory_hostname]
+
+- name: Check ansible version
+  when:
+    - ansible_version.full is version_compare('2.4', '<')
+  debug: msg="This role works best with ansible version 2.4 or greater. It is recommended to use the latest ansible version for the best experience."
+
+- name: Docker | Include {{ ansible_distribution }} specific variables
+  include_vars: "ansible_distribution/{{ ansible_distribution.split(' ', 1)[0]|lower }}.yml"
+
+- name: Docker | Include {{ ansible_os_family }} Family specific variables
+  include_vars: "ansible_os_family/{{ ansible_os_family.split(' ', 1)[0]|lower }}.yml"
+
+- name: Docker | EE | Check Requirements
+  fail:
+    msg: "Variable docker_ee_url is required and is not defined."
+  when:
+    - docker_ee_url is not defined
+    - docker_edition == "ee"
+
+- name: Docker | Storage Driver
+  include_tasks: "storage_drivers/{{ docker_storage_driver }}.yml"
+  when: docker_storage_driver is defined
+
+- name: Docker | Manage OS not supported by docker-ce
+  set_fact:
+    docker_edition: legacy
+  when: ( ansible_distribution|lower == "centos" and ansible_distribution_major_version == "6" ) or
+        ( ansible_distribution|lower == "redhat" and ansible_distribution_major_version == "6" ) or
+        ( ansible_distribution|lower == "oraclelinux" and ansible_distribution_major_version == "6" )
+
+- name: Docker | Start Installation
+  include_tasks: "{{ docker_edition }}/{{ ansible_pkg_mgr }}.yml"
+  when: docker_repo == "docker"
+
+- name: Docker | Start Installation | Other repo
+  include_tasks: other_repo.yml
+  when: docker_repo == "other"
+
+- name: Docker | Ensure service starts at boot
+  service: name=docker enabled={{ docker_service_enabled }}
+
+- name: Docker | Deploy Config
+  include_tasks: deploy_config.yml
+
+- name: Docker | Proxy configuration
+  include_tasks: proxy.yml
+  when: docker_http_proxy is defined or
+        docker_https_proxy is defined or
+        docker_no_proxy_params is defined
+
+- name: Docker | Ensure service started
+  service: name=docker state=started

@@ -1,0 +1,11 @@
+---
+# For Ubuntu Trusty, Wily, and Xenial, it’s recommended to install the linux-image-extra kernel package.
+# The linux-image-extra package allows you use the aufs storage driver.
+- name: Docker | CE | Ubuntu | Install the linux-image-extra kernal package
+  apt: name="linux-image-extra-{{ ansible_kernel }}" state=present
+  when: ansible_distribution_version in ['14.04','15.10']
+
+# If you are installing on Ubuntu 14.04, apparmor is required.
+- name: Docker | CE | Ubuntu | Install AppArmor Dependency
+  apt: name=apparmor state=present
+  when: ansible_distribution_version in "14.04"

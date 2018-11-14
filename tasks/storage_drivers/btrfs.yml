@@ -1,0 +1,28 @@
+---
+- name: Docker | Storage Driver | Btrfs | Install Btrfs package
+  package: name={{ docker_btrfs_package }} state=present
+  when: ansible_os_family == "Debian"
+
+- name: Docker | Storage Driver | Btrfs | Enable btrfs driver
+  modprobe:
+    name: btrfs
+    state: present
+
+- name: Docker | Storage Driver | Btrfs | Create Btfs storage filesystem
+  filesystem:
+    dev: "{{ docker_block_device }}"
+    fstype: btrfs
+
+- name: Docker | Storage Driver | Btrfs | Create the /var/lib/docker folder
+  file:
+    dest: /var/lib/docker
+    state: directory
+
+- name: Docker | Storage Driver | Btrfs | Mount the filesystem
+  mount:
+    dest: /var/lib/docker
+    src: "{{ docker_block_device }}"
+    fstype: btrfs
+    passno: '0'
+    opts: "{{ docker_mount_opts | default(omit) }}"
+    state: mounted
