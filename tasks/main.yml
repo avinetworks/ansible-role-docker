@@ -1,9 +1,5 @@
 ---
 # tasks file for avinetworks.docker
-- name: Docker | Display all variables/facts known for a host
-  debug:
-    var: hostvars[inventory_hostname]
-
 - name: Check ansible version
   when:
     - ansible_version.full is version_compare('2.4', '<')
