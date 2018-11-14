@@ -1,5 +1,10 @@
 # avinetworks.docker
 
+## Build Status
+
+[![Build Status](https://travis-ci.org/avinetworks/ansible-role-docker.svg?branch=master)](https://travis-ci.org/avinetworks/ansible-role-docker)
+
+## Role Summary
 This role provides the following:
 * Installation of Docker following Docker-Engine install procedures as documented by Docker.
 * It will manage kernel versions as well, verifying the that the correct kernel for Docker support is installed.
@@ -9,13 +14,16 @@ Supports the following Operating Systems:
 * RedHat 7
 * Fedora 24
 * Fedora 23
+* Fedora 26
+* Fedora 27
+* Fedora 29
 * OracleLinux 7
 * Ubuntu 14.04
 * Ubuntu 16.04
 
 ## Requirements
 
-This role requires Ansible 2.0.0 or higher. Requirements are listed in the metadata file.
+This role requires Ansible 2.4 or higher. Requirements are listed in the metadata file.
 
 If you rely on privileage escalation (e.g. `become: true`) with this role, you will need Ansible 2.2.1 or higher to take advantage of this issue being fixed: https://github.com/ansible/ansible/issues/17490
 
