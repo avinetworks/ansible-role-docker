@@ -9,7 +9,7 @@
   assert:
     that: "{{ ansible_kernel | version_compare('3.10.0-514', '>=')}}"
     msg: "Please upgrade to kernel 3.10.0-514 or higher."
-  when: ansible_os_family|lower = "redhat"
+  when: ansible_os_family|lower == "redhat"
 
 - name: Docker | Storage Driver | overlay2 | Enable overlay driver
   modprobe:
