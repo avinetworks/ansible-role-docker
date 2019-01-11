@@ -43,9 +43,9 @@
     name: docker-ce-edge
     description: "Docker CE Edge - $basearch"
     baseurl: "{{ docker_ce_edge_repo_url }}"
-    gpgcheck: yes
+    gpgcheck: true
     gpgkey: "{{ docker_ce_gpg_key }}"
-    enabled: yes
+    enabled: true
     file: docker-ce
   when: docker_channel == "edge"
 
