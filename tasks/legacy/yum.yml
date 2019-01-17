@@ -31,8 +31,8 @@
     name: dockerrepo
     description: Docker Repository
     baseurl: "{{ docker_legacy_repo_url }}"
-    enabled: yes
-    gpgcheck: yes
+    enabled: true
+    gpgcheck: true
     gpgkey: "{{ docker_legacy_gpg_key }}"
 
 - name: Docker | YUM | Install Docker Application

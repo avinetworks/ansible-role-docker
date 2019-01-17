@@ -2,4 +2,4 @@
 - name: Docker | CE | Debian | Install the Debian Backports repository
   apt_repository:
     repo: "deb http://ftp.debian.org/debian {{ ansible_distribution_release }}-backports main"
-    update_cache: yes
+    update_cache: true
