@@ -49,5 +49,9 @@
         docker_https_proxy is defined or
         docker_no_proxy_params is defined
 
+- name: Docker | Add users to docker group
+  include_tasks: docker_users.yml
+  when: docker_users is defined
+
 - name: Docker | Ensure service started
   service: name=docker state=started
