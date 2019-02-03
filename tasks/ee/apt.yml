@@ -6,6 +6,10 @@
     - ca-certificates
     - curl
     - software-properties-common
+  register: task_result
+  until: task_result is success
+  retries: 10
+  delay: 2
 
 - name: Docker | EE | APT | Perform specific os tasks
   include: os/{{ ansible_distribution|lower }}.yml
@@ -17,7 +21,15 @@
     - docker
     - docker-engine
     - docker-ce
+  register: task_result
+  until: task_result is success
+  retries: 10
+  delay: 2
 
 - name: Docker | EE | APT | Install Docker Engine
   apt: name=docker-ee state=present
   notify: Docker | Restart Docker
+  register: task_result
+  until: task_result is success
+  retries: 10
+  delay: 2

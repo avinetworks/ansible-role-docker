@@ -6,6 +6,10 @@
       - docker-engine
       - docker-io
     state: absent
+  register: task_result
+  until: task_result is success
+  retries: 10
+  delay: 2
 
 - name: Docker | CE | APT | Install Prerequisits for APT
   apt:
@@ -16,6 +20,10 @@
       - software-properties-common
       - gnupg2
     state: present
+  register: task_result
+  until: task_result is success
+  retries: 10
+  delay: 2
 
 - name: Docker | CE | APT | Add repository key
   block:
@@ -48,3 +56,7 @@
 - name: Docker | CE | APT | Install docker-ce
   apt: name=docker-ce state=present
   notify: Docker | Restart Docker
+  register: task_result
+  until: task_result is success
+  retries: 10
+  delay: 2

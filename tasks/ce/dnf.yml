@@ -14,6 +14,10 @@
   rescue:
     - name: Docker | CE | DNF | Ensure curl is present (systems without SNI).
       package: name=curl
+      register: task_result
+      until: task_result is success
+      retries: 10
+      delay: 2
     - name: Docker | CE | DNF | Download GPG key (systems without SNI).
       shell: "curl -sSL {{ docker_ce_gpg_key }} -o /tmp/docker-gpg"
     - name: Docker | CE | DNF | Add Docker GPG key (systems without SNI).
@@ -33,6 +37,10 @@
   rescue:
     - name: Docker | CE | DNF | Install dnf-utils (systems without SNI)
       dnf: name=dnf-plugins-core
+      register: task_result
+      until: task_result is success
+      retries: 10
+      delay: 2
     - name: Docker | CE | DNF | Deploy repository (systems without SNI)
       shell: "dnf config-manager --add-repo {{ docker_ce_repo_file_url }}"
       args:
@@ -60,3 +68,7 @@
     name: docker-ce
     state: present
   notify: Docker | Restart Docker
+  register: task_result
+  until: task_result is success
+  retries: 10
+  delay: 2

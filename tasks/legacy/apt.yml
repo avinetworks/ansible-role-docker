@@ -21,11 +21,19 @@
 - name: Ubuntu | Install the linux-image-extra kernal package
   apt: name="linux-image-extra-{{ ansible_kernel }}" state=present
   when: ansible_distribution == 'Ubuntu' and ansible_distribution_version in ['14.04','15.10']
+  register: task_result
+  until: task_result is success
+  retries: 10
+  delay: 2
 
 # If you are installing on Ubuntu 14.04 or 12.04, apparmor is required.
 - name: Ubuntu | Install AppArmor Dependency
   apt: name=apparmor state=present
   when: ansible_distribution == 'Ubuntu' and ansible_distribution_version in ['14.04','12.04']
+  register: task_result
+  until: task_result is success
+  retries: 10
+  delay: 2
 
 # Docker requires that your kernel be set to 3.13 or higher.
 - name: Ubuntu | Update Kernel Version to >= 3.13
@@ -34,6 +42,10 @@
     - linux-image-generic-lts-trusty
     - linux-headers-generic-lts-trusty
   when: ansible_distribution == 'Ubuntu' and ansible_distribution_version == '12.04'
+  register: task_result
+  until: task_result is success
+  retries: 10
+  delay: 2
 
 # Before we start docker, we need to make sure the system is running on Kernel 3.13 or higher.
 - name: Ubuntu | Update Kernel Version to >= 3.13 | Reboot Host
@@ -52,7 +64,15 @@
 # Remove any previous version of docker.
 - name: APT | Remove old repo lxc-docker
   apt: name=lxc-docker state=absent
+  register: task_result
+  until: task_result is success
+  retries: 10
+  delay: 2
 
 # Install newer version of docker.
 - name: APT | Install Docker Engine
   apt: name=docker-engine state=present
+  register: task_result
+  until: task_result is success
+  retries: 10
+  delay: 2

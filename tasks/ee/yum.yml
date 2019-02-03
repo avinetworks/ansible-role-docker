@@ -6,6 +6,10 @@
 
 - name: Docker | EE | YUM | Install yum-utils
   yum: name=yum-utils
+  register: task_result
+  until: task_result is success
+  retries: 10
+  delay: 2
 
 - name: Docker | EE | YUM | Deploy repository
   shell: "yum-config-manager --add-repo {{ docker_ee_url }}/docker-ee.repo"
@@ -25,7 +29,15 @@
     - docker-engine-selinux
     - docker-engine
     - docker-ce
+  register: task_result
+  until: task_result is success
+  retries: 10
+  delay: 2
 
 - name: Docker | EE | YUM | Install Docker Application
   yum: name=docker-ee state=present
   notify: Docker | Restart Docker
+  register: task_result
+  until: task_result is success
+  retries: 10
+  delay: 2

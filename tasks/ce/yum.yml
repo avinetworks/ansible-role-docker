@@ -33,6 +33,10 @@
   rescue:
     - name: Docker | CE | YUM | Install yum-utils (systems without SNI)
       yum: name=yum-utils
+      register: task_result
+      until: task_result is success
+      retries: 10
+      delay: 2
     - name: Docker | CE | YUM | Deploy repository (systems without SNI)
       shell: "yum-config-manager --add-repo {{ docker_ce_repo_file_url }}"
       args:
@@ -60,3 +64,7 @@
     name: docker-ce
     state: present
   notify: Docker | Restart Docker
+  register: task_result
+  until: task_result is success
+  retries: 10
+  delay: 2

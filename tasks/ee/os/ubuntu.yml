@@ -4,11 +4,19 @@
 - name: Docker | EE | Ubuntu | Install the linux-image-extra kernal package
   apt: name="linux-image-extra-{{ ansible_kernel }}" state=present
   when: ansible_distribution_version in ['14.04','15.10']
+  register: task_result
+  until: task_result is success
+  retries: 10
+  delay: 2
 
 # If you are installing on Ubuntu 14.04 or 12.04, apparmor is required.
 - name: Docker | EE | Ubuntu | Install AppArmor Dependency
   apt: name=apparmor state=present
   when: ansible_distribution_version in "14.04"
+  register: task_result
+  until: task_result is success
+  retries: 10
+  delay: 2
 
 # Check and see if the GPG key already exists on the host
 - name: Docker | CE | APT | Check GPG Key
