@@ -22,7 +22,7 @@ provisioner:
   lint:
     name: ansible-lint
     options:
-      config-file: molecule/default/.yamllint
+      c: molecule/default/.yamllint
   playbooks:
     converge: ${MOLECULE_PLAYBOOK:-playbook.yml}
 scenario:
