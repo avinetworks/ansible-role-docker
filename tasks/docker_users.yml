@@ -1,0 +1,7 @@
+---
+- name: Ensure docker users are added to the docker group.
+  user:
+    name: "{{ item }}"
+    groups: docker
+    append: true
+  loop: "{{ docker_users | flatten(levels=1) }}"

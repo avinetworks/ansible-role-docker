@@ -92,6 +92,7 @@ For more information about the variables many can be found https://docs.docker.c
 | `docker_tlsverify` | No | `Undefined` | Use TLS and verify the remote |
 | `docker_userland_proxy` | No | `Undefined` | Use userland proxy for loopback traffic |
 | `docker_userns_remap` | No | `Undefined` | User/Group setting for user namespaces |
+| `docker_users` | No | `Undefined` | A list of system users to be added to the docker group (so they can use Docker on the server) |
 | `docker_http_proxy` | No | `Undefined` | Set the Docker service to use HTTP_PROXY |
 | `docker_https_proxy` | No | `Undefined` | Set the Docker service to use HTTPS_PROXY |
 | `docker_no_proxy_params` | No | `Undefined` | Do not proxy for Docker service params |
