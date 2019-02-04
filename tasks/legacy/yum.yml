@@ -25,6 +25,10 @@
       - docker
       - docker-io
     state: absent
+  register: task_result
+  until: task_result is success
+  retries: 10
+  delay: 2
 
 - name: Docker | YUM | Configure Docker repository
   yum_repository:
@@ -38,3 +42,7 @@
 - name: Docker | YUM | Install Docker Application
   yum: name=docker-engine state=present
   notify: Docker | Restart Docker
+  register: task_result
+  until: task_result is success
+  retries: 10
+  delay: 2

@@ -8,6 +8,10 @@
     gpgcheck: 1
     gpgkey: file:///etc/pki/rpm-gpg/RPM-GPG-KEY-oracle
   when: ansible_distribution_major_version == "7"
+  register: task_result
+  until: task_result is success
+  retries: 10
+  delay: 2
 
 - name: Docker | EE | YUM | Oracle Linux | Enable UEK R4
   yum_repository:
@@ -18,3 +22,7 @@
     gpgcheck: 1
     gpgkey: file:///etc/pki/rpm-gpg/RPM-GPG-KEY-oracle
   when: ansible_distribution_major_version == "7"
+  register: task_result
+  until: task_result is success
+  retries: 10
+  delay: 2

@@ -3,7 +3,10 @@
 - name: Check ansible version
   when:
     - ansible_version.full is version_compare('2.4', '<')
-  debug: msg="This role works best with ansible version 2.4 or greater. It is recommended to use the latest ansible version for the best experience."
+  debug:
+    msg: >-
+      "This role works best with ansible version 2.4 or greater.
+      It is recommended to use the latest ansible version for the best experience."
 
 - name: Docker | Include {{ ansible_distribution }} specific variables
   include_vars: "ansible_distribution/{{ ansible_distribution.split(' ', 1)[0]|lower }}.yml"
@@ -25,9 +28,9 @@
 - name: Docker | Manage OS not supported by docker-ce
   set_fact:
     docker_edition: legacy
-  when: ( ansible_distribution|lower == "centos" and ansible_distribution_major_version == "6" ) or
-        ( ansible_distribution|lower == "redhat" and ansible_distribution_major_version == "6" ) or
-        ( ansible_distribution|lower == "oraclelinux" and ansible_distribution_major_version == "6" )
+  when: (ansible_distribution|lower == "centos" and ansible_distribution_major_version == "6") or
+        (ansible_distribution|lower == "redhat" and ansible_distribution_major_version == "6") or
+        (ansible_distribution|lower == "oraclelinux" and ansible_distribution_major_version == "6")
 
 - name: Docker | Start Installation
   include_tasks: "{{ docker_edition }}/{{ ansible_pkg_mgr }}.yml"
@@ -38,7 +41,9 @@
   when: docker_repo == "other"
 
 - name: Docker | Ensure service starts at boot
-  service: name=docker enabled={{ docker_service_enabled }}
+  service:
+    name: docker
+    enabled: "{{ docker_service_enabled }}"
 
 - name: Docker | Deploy Config
   include_tasks: deploy_config.yml

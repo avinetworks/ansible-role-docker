@@ -22,8 +22,7 @@ provisioner:
   lint:
     name: ansible-lint
     options:
-      x:
-        - ANSIBLE0010
+      c: molecule/default/.ansible-lint
   playbooks:
     converge: ${MOLECULE_PLAYBOOK:-playbook.yml}
 scenario:
