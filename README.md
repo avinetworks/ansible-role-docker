@@ -30,7 +30,7 @@ For more information about the variables many can be found https://docs.docker.c
 
 | Variable | Required | Default | Comments |
 |----------|----------|---------|----------|
-| `docker_edition` | No | `ce` | Specifies either legacy, ce, or ee version of Docker. |
+| `docker_edition` | No | `ce` | Specifies either ce, or ee version of Docker. |
 | `docker_ee_url` | No | `Undefined` | Docker EE URL from the Docker Store |
 | `docker_repo` | No | `docker` | Defines how Ansible manages the repository. Options are "other" and "docker" |
 | `docker_channel` | No | `stable` | What release channel of Docker to install. |

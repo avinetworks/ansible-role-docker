@@ -8,6 +8,15 @@
       "This role works best with ansible version 2.4 or greater.
       It is recommended to use the latest ansible version for the best experience."
 
+- name: Docker | Manage OS not supported by docker-ce
+  fail:
+    msg: "This OS is not supported by Docker-CE, and therefor not supported by this role."
+  when:
+    - docker_edition == "ce"
+    - (ansible_distribution|lower == "centos" and ansible_distribution_major_version == "6") or
+      ansible_distribution|lower == "redhat" or
+      ansible_distribution|lower == "oraclelinux"
+
 - name: Docker | Include {{ ansible_distribution }} specific variables
   include_vars: "ansible_distribution/{{ ansible_distribution.split(' ', 1)[0]|lower }}.yml"
 
@@ -24,13 +33,6 @@
 - name: Docker | Storage Driver
   include_tasks: "storage_drivers/{{ docker_storage_driver }}.yml"
   when: docker_storage_driver is defined
-
-- name: Docker | Manage OS not supported by docker-ce
-  set_fact:
-    docker_edition: legacy
-  when: (ansible_distribution|lower == "centos" and ansible_distribution_major_version == "6") or
-        (ansible_distribution|lower == "redhat" and ansible_distribution_major_version == "6") or
-        (ansible_distribution|lower == "oraclelinux" and ansible_distribution_major_version == "6")
 
 - name: Docker | Start Installation
   include_tasks: "{{ docker_edition }}/{{ ansible_pkg_mgr }}.yml"
