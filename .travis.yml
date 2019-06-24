@@ -1,6 +1,4 @@
 ---
-dist: trusty
-sudo: required
 language: python
 services:
   - docker
@@ -35,7 +33,7 @@ env:
       MOLECULE_COMMAND: /lib/systemd/systemd
 
 install:
-  - pip install molecule docker
+  - pip install testinfra molecule docker
 
 before_script:
   - cd ../
