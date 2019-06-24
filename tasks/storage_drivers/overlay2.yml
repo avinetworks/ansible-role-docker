@@ -1,13 +1,13 @@
 ---
 - name: Docker | Storage Driver | overlay2 | Check kernel version for 4.0.0
   assert:
-    that: "{{ ansible_kernel | version_compare('4.0.0', '>=')}}"
+    that: "{{ ansible_kernel | version_compare('4.0.0', '>=') }}"
     msg: "Please upgrade to kernel 4.0.0 or higher."
   when: ansible_os_family|lower != "redhat"
 
 - name: Docker | Storage Driver | overlay2 | Check kernel version for 3.10.0-514
   assert:
-    that: "{{ ansible_kernel | version_compare('3.10.0-514', '>=')}}"
+    that: "{{ ansible_kernel | version_compare('3.10.0-514', '>=') }}"
     msg: "Please upgrade to kernel 3.10.0-514 or higher."
   when: ansible_os_family|lower == "redhat"
 
