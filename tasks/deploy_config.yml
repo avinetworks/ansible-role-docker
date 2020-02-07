@@ -10,7 +10,7 @@
 - name: Docker | Deploy Config | Set the Docker configuration
   set_fact:
     docker_config: "{{ docker_config|combine({ item.key: item.value }) }}"
-  when: item.value | length > 0
+  when: item.value | string | length > 0
   with_dict: "{{ docker_options }}"
 
 - name: Docker | Deploy Config | Deploy /etc/docker/daemon.json
