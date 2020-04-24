@@ -2,7 +2,7 @@
 # tasks file for avinetworks.docker
 - name: Check ansible version
   when:
-    - ansible_version.full is version_compare('2.4', '<')
+    - ansible_version.full is version('2.4', '<')
   debug:
     msg: >-
       "This role works best with ansible version 2.4 or greater.
