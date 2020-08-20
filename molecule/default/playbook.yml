@@ -5,7 +5,7 @@
     - name: upgrade python
       package:
         name: python
-        state: latest
+        state: present
     - name: create containerd folder
       file:
         path: /etc/systemd/system/containerd.service.d
