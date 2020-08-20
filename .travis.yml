@@ -35,7 +35,7 @@ env:
       MOLECULE_COMMAND: /lib/systemd/systemd
 
 install:
-  - pip install molecule docker
+  - pip install molecule yamllint ansible-lint flake8 testinfra docker
 
 before_script:
   - cd ../
