@@ -1,6 +1,11 @@
 ---
 parseable: true
 skip_list:
-  - ANSIBLE0010
+  - 305
+  - 306
+  - 303
+  - 208
+  - 503
+  - 106
 use_default_rules: true
 verbosity: 1
