@@ -2,6 +2,9 @@
 dist: trusty
 sudo: required
 language: python
+
+python: "3.7"
+
 services:
   - docker
 
@@ -33,7 +36,7 @@ env:
       MOLECULE_COMMAND: /lib/systemd/systemd
 
 install:
-  - pip install molecule yamllint ansible-lint flake8 testinfra docker
+  - pip install molecule yamllint ansible-lint flake8 testinfra docker molecule-docker
 
 before_script:
   - cd ../
