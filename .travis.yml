@@ -1,7 +1,10 @@
 ---
-dist: trusty
+dist: xenial
 sudo: required
 language: python
+
+python: "3.7"
+
 services:
   - docker
 
@@ -21,8 +24,6 @@ env:
     - MOLECULE_DISTRO: fedora:28
       MOLECULE_SERVICE_MANAGER: systemd
       MOLECULE_COMMAND: /usr/sbin/init
-    - MOLECULE_DISTRO: ubuntu-upstart:trusty
-      MOLECULE_COMMAND: /sbin/init
     - MOLECULE_DISTRO: ubuntu:xenial
       MOLECULE_COMMAND: /sbin/init
     - MOLECULE_DISTRO: ubuntu:bionic
@@ -33,7 +34,7 @@ env:
       MOLECULE_COMMAND: /lib/systemd/systemd
 
 install:
-  - pip install molecule yamllint ansible-lint flake8 testinfra docker
+  - pip install molecule yamllint ansible-lint flake8 testinfra docker molecule-docker
 
 before_script:
   - cd ../
