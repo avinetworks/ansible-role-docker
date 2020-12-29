@@ -46,6 +46,7 @@ docker_options:
   max-concurrent-downloads: "{{ docker_max_concurrent_downloads | default(None) }}"
   max-concurrent-uploads: "{{ docker_max_concurrent_uploads | default(None) }}"
   mtu: "{{ docker_mtu | default(None) }}"
+  no-new-privileges: "{{ docker_no_new_privileges | default(None) }}"
   oom-score-adjust: "{{ docker_oom_score_adjust | default(None) }}"
   pidfile: "{{ docker_pidfile | default(None) }}"
   raw-logs: "{{ docker_raw_logs | default(None) }}"

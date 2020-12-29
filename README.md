@@ -78,6 +78,7 @@ For more information about the variables many can be found https://docs.docker.c
 | `docker_max_concurrent_downloads` | No | `Undefined` | Set the max concurrent downloads for each pull |
 | `docker_max_concurrent_uploads` | No | `Undefined` | Set the max concurrent uploads for each push |
 | `docker_mtu` | No | `Undefined` | Set the containers network MTU |
+| `docker_no_new_privileges` | No | `Undefined` | Set no-new-privileges by default for new containers |
 | `docker_oom_score_adjust` | No | `Undefined` | Set the oom_score_adj for the daemon |
 | `docker_pidfile` | No | `Undefined` | Path to use for daemon PID file |
 | `docker_raw_logs` | No | `Undefined` | Full timestamps without ANSI coloring |
