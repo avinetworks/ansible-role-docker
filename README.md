@@ -1,7 +1,5 @@
 # avinetworks.docker
 
-[![Build Status](https://travis-ci.org/avinetworks/ansible-role-docker.svg?branch=master)](https://travis-ci.org/avinetworks/ansible-role-docker)
-
 ## Role Summary
 This role provides the following:
 * Installation of Docker following Docker-Engine install procedures as documented by Docker.
