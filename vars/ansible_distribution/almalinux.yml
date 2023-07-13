@@ -1,5 +1,5 @@
 ---
-# CentOS vars file for avinetworks.docker
+# Almalinux vars file for avinetworks.docker
 
 docker_ce_repo_url: https://download.docker.com/linux/centos
 docker_ce_repo_file_url: "{{ docker_ce_repo_url }}/docker-ce.repo"
